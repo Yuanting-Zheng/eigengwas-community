@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="htmlRoot">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EigenGWAS Community — AI for Genomics & Statistical Genetics</title>
+    <title data-i18n="page_title">EigenGWAS Community — AI for Genomics & Statistical Genetics</title>
     <meta name="description" content="Statistical Genetics & Computational Genomics Research Group — AI for Science, Genomic Prediction, Privacy-Preserving Biobank Analytics">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -598,6 +598,61 @@
             .pub-links-inline { grid-column: 1 / -1; }
             .team-grid { grid-template-columns: 1fr; }
         }
+
+        /* ===== LANGUAGE TOGGLE ===== */
+        .lang-toggle {
+            display: inline-flex;
+            align-items: center;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            overflow: hidden;
+            margin-left: 1rem;
+        }
+        .lang-toggle button {
+            background: transparent;
+            border: none;
+            padding: 0.25rem 0.55rem;
+            cursor: pointer;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            font-weight: 600;
+            transition: all 0.2s;
+            line-height: 1.4;
+        }
+        .lang-toggle button.active {
+            background: var(--primary);
+            color: white;
+        }
+        .lang-toggle button:hover:not(.active) {
+            background: var(--bg-light);
+        }
+        .pub-year-divider {
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--primary);
+            padding: 0.8rem 0 0.3rem;
+            border-bottom: 2px solid var(--primary-light);
+            margin-bottom: 0.5rem;
+            margin-top: 1rem;
+        }
+        .pub-more-btn {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.5rem 1.5rem;
+            border: 1px solid var(--primary-light);
+            border-radius: 8px;
+            background: transparent;
+            color: var(--primary-light);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .pub-more-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
     </style>
 </head>
 <body>
@@ -607,11 +662,15 @@
             <a href="#" class="nav-brand"><span class="dot"></span> EigenGWAS Community</a>
             <button class="nav-toggle" onclick="document.getElementById('navL').classList.toggle('active')"><i class="fas fa-bars"></i></button>
             <ul class="nav-links" id="navL">
-                <li><a href="#research">Research</a></li>
-                <li><a href="#tools">Tools</a></li>
-                <li><a href="#publications">Publications</a></li>
-                <li><a href="#team">Team</a></li>
+                <li><a href="#research" data-i18n="nav_research">Research</a></li>
+                <li><a href="#tools" data-i18n="nav_tools">Tools</a></li>
+                <li><a href="#publications" data-i18n="nav_publications">Publications</a></li>
+                <li><a href="#team" data-i18n="nav_team">Team</a></li>
             </ul>
+            <div class="lang-toggle">
+                <button id="langEn" class="active" onclick="switchLang('en')">EN</button>
+                <button id="langZh" onclick="switchLang('zh')">中</button>
+            </div>
         </div>
     </nav>
 
@@ -620,19 +679,19 @@
         <div class="hero-content">
             <div class="hero-grid">
                 <div>
-                    <h1>AI for Genomics<span>Statistical Genetics · Computational Genomics · Precision Medicine · Smart Breeding</span></h1>
-                    <p class="tagline">We develop statistical methods and AI-powered computational tools to decode large-scale genomic data — driving breakthroughs from biobank analytics to clinical translation and agricultural innovation.</p>
+                    <h1><span data-i18n="hero_title">AI for Genomics</span><span data-i18n="hero_subtitle">Statistical Genetics · Computational Genomics · Precision Medicine · Smart Breeding</span></h1>
+                    <p class="tagline" data-i18n="hero_tagline">We develop statistical methods and AI-powered computational tools to decode large-scale genomic data — driving breakthroughs from biobank analytics to clinical translation and agricultural innovation.</p>
                     <div class="hero-stats">
-                        <div class="stat-item"><span class="stat-num">62+</span><span class="stat-label">Publications</span></div>
+                        <div class="stat-item"><span class="stat-num">62+</span><span class="stat-label" data-i18n="stat_publications">Publications</span></div>
                         <div class="stat-item"><span class="stat-num">Nature</span><span class="stat-label">Lancet</span></div>
-                        <div class="stat-item"><span class="stat-num">4</span><span class="stat-label">Open Tools</span></div>
-                        <div class="stat-item"><span class="stat-num">15+</span><span class="stat-label">Partners</span></div>
+                        <div class="stat-item"><span class="stat-num">4</span><span class="stat-label" data-i18n="stat_tools">Open Tools</span></div>
+                        <div class="stat-item"><span class="stat-num">15+</span><span class="stat-label" data-i18n="stat_partners">Partners</span></div>
                     </div>
                 </div>
                 <div class="hero-ai-badge">
                     <div class="ai-icon"><i class="fas fa-brain"></i></div>
                     <h3>AI-for-Science</h3>
-                    <p>Statistical Genetics × HPC<br>Next-Gen Genomics Paradigm</p>
+                    <p><span data-i18n="ai_badge_line1">Statistical Genetics × HPC</span><br><span data-i18n="ai_badge_line2">Next-Gen Genomics Paradigm</span></p>
                 </div>
             </div>
         </div>
@@ -642,34 +701,34 @@
     <section class="section projects-bg" id="research">
         <div class="container">
             <div class="sec-header fade-up">
-                <div class="label">Research Directions</div>
-                <h2>Core Research — AI for Science</h2>
-                <p>Computational methods and AI as engines, accelerating the translation from genomic data to discovery</p>
+                <div class="label" data-i18n="research_label">Research Directions</div>
+                <h2 data-i18n="research_title">Core Research — AI for Science</h2>
+                <p data-i18n="research_desc">Computational methods and AI as engines, accelerating the translation from genomic data to discovery</p>
             </div>
             <div class="project-cards">
                 <!-- Project 1: EigenGWAS -->
                 <div class="project-card pc-blue fade-up">
                     <div class="icon-wrap"><i class="fas fa-dna"></i></div>
-                    <h3>EigenGWAS — Genomic Selection Scanning</h3>
-                    <div class="subtitle">AI-Driven Detection of Natural Selection Signals</div>
-                    <p>Original unsupervised genomic scanning method based on eigenvector decomposition — detects natural selection signals without requiring population labels. Evolved from a methodological paper into a global online platform, widely applied in human population genetics, crop domestication, and animal genetic diversity research.</p>
+                    <h3 data-i18n="proj1_title">EigenGWAS — Genomic Selection Scanning</h3>
+                    <div class="subtitle" data-i18n="proj1_subtitle">AI-Driven Detection of Natural Selection Signals</div>
+                    <p data-i18n="proj1_desc">Original unsupervised genomic scanning method based on eigenvector decomposition — detects natural selection signals without requiring population labels. Evolved from a methodological paper into a global online platform, widely applied in human population genetics, crop domestication, and animal genetic diversity research.</p>
                     <div class="project-tags">
-                        <span>Population Genetics</span><span>Natural Selection</span><span>Crop Breeding</span><span>Open Platform</span>
+                        <span data-i18n="proj1_tag1">Population Genetics</span><span data-i18n="proj1_tag2">Natural Selection</span><span data-i18n="proj1_tag3">Crop Breeding</span><span data-i18n="proj1_tag4">Open Platform</span>
                     </div>
                     <div class="project-links">
-                        <a href="https://www.eigengwas.com" target="_blank" class="pl-primary"><i class="fas fa-globe"></i> Platform</a>
-                        <a href="https://pubmed.ncbi.nlm.nih.gov/33665976/" target="_blank" class="pl-secondary"><i class="fas fa-file-alt"></i> Paper</a>
+                        <a href="https://www.eigengwas.com" target="_blank" class="pl-primary"><i class="fas fa-globe"></i> <span data-i18n="btn_platform">Platform</span></a>
+                        <a href="https://pubmed.ncbi.nlm.nih.gov/33665976/" target="_blank" class="pl-secondary"><i class="fas fa-file-alt"></i> <span data-i18n="btn_paper">Paper</span></a>
                     </div>
                 </div>
 
                 <!-- Project 2: UK BioCoin -->
                 <div class="project-card pc-red fade-up">
                     <div class="icon-wrap"><i class="fas fa-coins"></i></div>
-                    <h3>UK BioCoin — Privacy-Preserving Biobank Analytics</h3>
-                    <div class="subtitle">Breaking the Permission Wall & Computation Wall</div>
-                    <p>Achieve user-defined covariate-adjusted trait-specific summary statistics regression without accessing individual-level data. 70-80x computational speedup — a new paradigm for privacy-preserving data sharing in precision medicine.</p>
+                    <h3 data-i18n="proj2_title">UK BioCoin — Privacy-Preserving Biobank Analytics</h3>
+                    <div class="subtitle" data-i18n="proj2_subtitle">Breaking the Permission Wall & Computation Wall</div>
+                    <p data-i18n="proj2_desc">Achieve user-defined covariate-adjusted trait-specific summary statistics regression without accessing individual-level data. 70-80x computational speedup — a new paradigm for privacy-preserving data sharing in precision medicine.</p>
                     <div class="project-tags">
-                        <span>UK Biobank</span><span>Precision Medicine</span><span>Privacy-Preserving</span><span>Data Science</span>
+                        <span data-i18n="proj2_tag1">UK Biobank</span><span data-i18n="proj2_tag2">Precision Medicine</span><span data-i18n="proj2_tag3">Privacy-Preserving</span><span data-i18n="proj2_tag4">Data Science</span>
                     </div>
                     <div class="project-links">
                         <a href="https://github.com/Ttttt47/UKBioCoin" target="_blank" class="pl-primary"><i class="fab fa-github"></i> GitHub</a>
@@ -680,11 +739,11 @@
                 <!-- Project 3: Genomic Prediction -->
                 <div class="project-card pc-green fade-up">
                     <div class="icon-wrap"><i class="fas fa-seedling"></i></div>
-                    <h3>Genomic Prediction — AI-Powered Smart Breeding</h3>
-                    <div class="subtitle">From Statistical Frontiers to Agricultural Productivity</div>
-                    <p>Novel genomic prediction combining Haseman-Elston regression with APY algorithm for ultra-large-scale genomic data. Translating cutting-edge statistical methods into real productivity for crop and livestock genetic improvement.</p>
+                    <h3 data-i18n="proj3_title">Genomic Prediction — AI-Powered Smart Breeding</h3>
+                    <div class="subtitle" data-i18n="proj3_subtitle">From Statistical Frontiers to Agricultural Productivity</div>
+                    <p data-i18n="proj3_desc">Novel genomic prediction combining Haseman-Elston regression with APY algorithm for ultra-large-scale genomic data. Translating cutting-edge statistical methods into real productivity for crop and livestock genetic improvement.</p>
                     <div class="project-tags">
-                        <span>Smart Breeding</span><span>Genomic Selection</span><span>Industrial Translation</span><span>HE-APY</span>
+                        <span data-i18n="proj3_tag1">Smart Breeding</span><span data-i18n="proj3_tag2">Genomic Selection</span><span data-i18n="proj3_tag3">Industrial Translation</span><span>HE-APY</span>
                     </div>
                     <div class="project-links">
                         <a href="https://pubmed.ncbi.nlm.nih.gov/35645540/" target="_blank" class="pl-secondary"><i class="fas fa-file-alt"></i> Crop J 2022</a>
@@ -694,11 +753,11 @@
                 <!-- Project 4: LD Atlas -->
                 <div class="project-card pc-purple fade-up">
                     <div class="icon-wrap"><i class="fas fa-atlas"></i></div>
-                    <h3>LD Atlas — Cross-Species Linkage Disequilibrium</h3>
-                    <div class="subtitle">Genomic Infrastructure for GWAS & Heritability</div>
-                    <p>Building a cross-species LD reference atlas — critical infrastructure for GWAS, heritability estimation, and polygenic score computation. Enabling efficient estimation of large-scale LD patterns across diverse species.</p>
+                    <h3 data-i18n="proj4_title">LD Atlas — Cross-Species Linkage Disequilibrium</h3>
+                    <div class="subtitle" data-i18n="proj4_subtitle">Genomic Infrastructure for GWAS & Heritability</div>
+                    <p data-i18n="proj4_desc">Building a cross-species LD reference atlas — critical infrastructure for GWAS, heritability estimation, and polygenic score computation. Enabling efficient estimation of large-scale LD patterns across diverse species.</p>
                     <div class="project-tags">
-                        <span>Linkage Disequilibrium</span><span>Population Genetics</span><span>Data Infrastructure</span><span>Cross-Species</span>
+                        <span data-i18n="proj4_tag1">Linkage Disequilibrium</span><span data-i18n="proj4_tag2">Population Genetics</span><span data-i18n="proj4_tag3">Data Infrastructure</span><span data-i18n="proj4_tag4">Cross-Species</span>
                     </div>
                     <div class="project-links">
                         <a href="https://pubmed.ncbi.nlm.nih.gov/41267068/" target="_blank" class="pl-secondary"><i class="fas fa-file-alt"></i> Genome Biol 2025</a>
@@ -708,22 +767,22 @@
                 <!-- Project 5: Clinical Genomics -->
                 <div class="project-card pc-teal fade-up">
                     <div class="icon-wrap"><i class="fas fa-heartbeat"></i></div>
-                    <h3>Clinical Genomics — Precision Medicine</h3>
-                    <div class="subtitle">From Bench to Bedside via Statistical Genetics</div>
-                    <p>Applying statistical genetics to dissect the genetic architecture of gestational complications (GDM, ICP), inflammatory bowel disease, and COVID-19 vaccine immune response — driving genomic discoveries toward clinical translation.</p>
+                    <h3 data-i18n="proj5_title">Clinical Genomics — Precision Medicine</h3>
+                    <div class="subtitle" data-i18n="proj5_subtitle">From Bench to Bedside via Statistical Genetics</div>
+                    <p data-i18n="proj5_desc">Applying statistical genetics to dissect the genetic architecture of gestational complications (GDM, ICP), inflammatory bowel disease, and COVID-19 vaccine immune response — driving genomic discoveries toward clinical translation.</p>
                     <div class="project-tags">
-                        <span>Precision Medicine</span><span>Maternal Health</span><span>Complex Disease</span><span>PRS</span>
+                        <span data-i18n="proj5_tag1">Precision Medicine</span><span data-i18n="proj5_tag2">Maternal Health</span><span data-i18n="proj5_tag3">Complex Disease</span><span>PRS</span>
                     </div>
                 </div>
 
                 <!-- Project 6: Medical Cohort -->
                 <div class="project-card pc-warm fade-up">
                     <div class="icon-wrap"><i class="fas fa-users"></i></div>
-                    <h3>Medical Cohort — Data Sharing Infrastructure</h3>
-                    <div class="subtitle">Privacy-Preserving Cross-Institution Collaboration</div>
-                    <p>Exploring large-scale medical cohort building and sharing models, with encrypted genotype regression for cross-cohort relative search — enabling multi-center collaboration with data interoperability and privacy protection.</p>
+                    <h3 data-i18n="proj6_title">Medical Cohort — Data Sharing Infrastructure</h3>
+                    <div class="subtitle" data-i18n="proj6_subtitle">Privacy-Preserving Cross-Institution Collaboration</div>
+                    <p data-i18n="proj6_desc">Exploring large-scale medical cohort building and sharing models, with encrypted genotype regression for cross-cohort relative search — enabling multi-center collaboration with data interoperability and privacy protection.</p>
                     <div class="project-tags">
-                        <span>Data Sharing</span><span>Privacy-Preserving</span><span>Cohort Building</span><span>Cross-Site</span>
+                        <span data-i18n="proj6_tag1">Data Sharing</span><span data-i18n="proj6_tag2">Privacy-Preserving</span><span data-i18n="proj6_tag3">Cohort Building</span><span data-i18n="proj6_tag4">Cross-Site</span>
                     </div>
                 </div>
             </div>
@@ -734,31 +793,31 @@
     <section class="section" id="tools">
         <div class="container">
             <div class="sec-header fade-up">
-                <div class="label">Open-Source Tools</div>
-                <h2>Software & Platforms</h2>
-                <p>Open-source tool ecosystem serving the global research community</p>
+                <div class="label" data-i18n="tools_label">Open-Source Tools</div>
+                <h2 data-i18n="tools_title">Software & Platforms</h2>
+                <p data-i18n="tools_desc">Open-source tool ecosystem serving the global research community</p>
             </div>
             <div class="tools-grid fade-up">
                 <div class="tool-card">
                     <h4>EigenGWAS</h4>
-                    <p>Online interactive platform for detecting genomic signatures of natural selection. PLINK data format support, R-Shiny friendly interface.</p>
+                    <p data-i18n="tool1_desc">Online interactive platform for detecting genomic signatures of natural selection. PLINK data format support, R-Shiny friendly interface.</p>
                     <a href="https://www.eigengwas.com" target="_blank"><i class="fas fa-external-link-alt"></i> eigengwas.com</a>
                     &nbsp;
                     <a href="https://github.com/gc5k/GEAR/wiki/EigenGWAS" target="_blank"><i class="fab fa-github"></i> GitHub</a>
                 </div>
                 <div class="tool-card">
                     <h4>GEAR</h4>
-                    <p>Genetic Analysis Repository — genomic analysis toolkit supporting EigenGWAS, ProPC, and multiple analytical methods.</p>
+                    <p data-i18n="tool2_desc">Genetic Analysis Repository — genomic analysis toolkit supporting EigenGWAS, ProPC, and multiple analytical methods.</p>
                     <a href="https://github.com/gc5k/GEAR/wiki" target="_blank"><i class="fab fa-github"></i> GitHub Wiki</a>
                 </div>
                 <div class="tool-card">
                     <h4>UK BioCoin</h4>
-                    <p>UK Biobank trait-specific summary statistics regression — 70-80x speedup, Docker deployment for reproducible research.</p>
+                    <p data-i18n="tool3_desc">UK Biobank trait-specific summary statistics regression — 70-80x speedup, Docker deployment for reproducible research.</p>
                     <a href="https://github.com/Ttttt47/UKBioCoin" target="_blank"><i class="fab fa-github"></i> GitHub</a>
                 </div>
                 <div class="tool-card">
                     <h4>QGAStation / GMDR-GPU</h4>
-                    <p>Quantitative Genetic Analysis Station & GPU-accelerated multifactor dimensionality reduction for interaction detection.</p>
+                    <p data-i18n="tool4_desc">Quantitative Genetic Analysis Station & GPU-accelerated multifactor dimensionality reduction for interaction detection.</p>
                     <a href="https://github.com/gc5k" target="_blank"><i class="fab fa-github"></i> GitHub</a>
                 </div>
             </div>
@@ -769,26 +828,26 @@
     <section class="section pub-section" id="publications">
         <div class="container">
             <div class="sec-header fade-up">
-                <div class="label">Publications</div>
-                <h2>Selected Publications</h2>
-                <p>62+ papers in statistical genetics, computational genomics, precision medicine, and breeding (* corresponding author, # co-first author)</p>
+                <div class="label" data-i18n="pub_label">Publications</div>
+                <h2 data-i18n="pub_title">Selected Publications</h2>
+                <p data-i18n="pub_desc">62+ papers in statistical genetics, computational genomics, precision medicine, and breeding (* corresponding author, # co-first author)</p>
             </div>
 
             <!-- Community Migration Announcement -->
             <div class="announce-banner fade-up" id="community">
-                <h3><i class="fas fa-bullhorn"></i> EigenGWAS Community Migration</h3>
-                <p>The EigenGWAS official community has fully migrated to the ModelScope platform, powered by advanced computing infrastructure and ecosystem services for researchers worldwide.</p>
-                <a href="https://modelscope.cn" target="_blank"><i class="fas fa-external-link-alt"></i> Visit ModelScope</a>
+                <h3><i class="fas fa-bullhorn"></i> <span data-i18n="announce_title">EigenGWAS Community Migration</span></h3>
+                <p data-i18n="announce_desc">The EigenGWAS official community has fully migrated to the ModelScope platform, powered by advanced computing infrastructure and ecosystem services for researchers worldwide.</p>
+                <a href="https://modelscope.cn" target="_blank"><i class="fas fa-external-link-alt"></i> <span data-i18n="announce_btn">Visit ModelScope</span></a>
             </div>
 
             <div class="pub-filter fade-up">
-                <button class="active" onclick="filterPub('all', this)">All</button>
+                <button class="active" onclick="filterPub('all', this)" data-i18n="filter_all">All</button>
                 <button onclick="filterPub('nature', this)">Nature/Lancet</button>
                 <button onclick="filterPub('natcomm', this)">Nat Comm</button>
-                <button onclick="filterPub('method', this)">Methods</button>
-                <button onclick="filterPub('clinical', this)">Clinical</button>
-                <button onclick="filterPub('breeding', this)">Breeding & Evo</button>
-                <button onclick="filterPub('software', this)">Software</button>
+                <button onclick="filterPub('method', this)" data-i18n="filter_method">Methods</button>
+                <button onclick="filterPub('clinical', this)" data-i18n="filter_clinical">Clinical</button>
+                <button onclick="filterPub('breeding', this)" data-i18n="filter_breeding">Breeding & Evo</button>
+                <button onclick="filterPub('software', this)" data-i18n="filter_software">Software</button>
             </div>
 
             <ul class="pub-list fade-up" id="pubList">
@@ -1142,7 +1201,7 @@
                 </li>
             </ul>
             <p style="text-align:center; color:var(--text-muted); font-size:0.85rem; margin-top:2rem;">
-                Selected publications shown · <a href="https://scholar.google.com/citations?user=&hl=en&q=Guo-Bo+Chen+statistical+genetics" target="_blank" style="color:var(--primary-light)">View all 62+ papers →</a>
+                <span data-i18n="pub_footer_prefix">Selected publications shown</span> · <a href="https://scholar.google.com/citations?user=&hl=en&q=Guo-Bo+Chen+statistical+genetics" target="_blank" style="color:var(--primary-light)" data-i18n="pub_footer_link">View all 62+ papers →</a>
             </p>
         </div>
     </section>
@@ -1151,52 +1210,52 @@
     <section class="section team-bg" id="team">
         <div class="container">
             <div class="sec-header fade-up">
-                <div class="label">Our Team</div>
-                <h2>Team & Vision</h2>
-                <p>A cross-disciplinary team at the intersection of statistics, computation, and biology</p>
+                <div class="label" data-i18n="team_label">Our Team</div>
+                <h2 data-i18n="team_title">Team & Vision</h2>
+                <p data-i18n="team_desc">A cross-disciplinary team at the intersection of statistics, computation, and biology</p>
             </div>
             <div class="team-grid fade-up">
                 <div class="team-card">
                     <h3>Prof. Guo-Bo Chen</h3>
-                    <div class="role">Principal Investigator</div>
-                    <p>Associate Professor at the Clinical Research Institute, Zhejiang Provincial People's Hospital. Postdoc with Prof. Peter Visscher (FRS) and Prof. Naomi Wray at the University of Queensland. Ph.D. in Bioinformatics from Zhejiang University.</p>
-                    <p>Research spans GWAS, natural selection scanning, heritability estimation, polygenic risk scoring, genomic prediction, and linkage disequilibrium analysis. Published in <strong>Nature, Lancet, Nature Communications, Genome Biology, eLife, Blood, AJHG</strong> and more.</p>
+                    <div class="role" data-i18n="team_role">Principal Investigator</div>
+                    <p data-i18n="team_bio1">Associate Professor at the Clinical Research Institute, Zhejiang Provincial People's Hospital. Postdoc with Prof. Peter Visscher (FRS) and Prof. Naomi Wray at the University of Queensland. Ph.D. in Bioinformatics from Zhejiang University.</p>
+                    <p data-i18n="team_bio2">Research spans GWAS, natural selection scanning, heritability estimation, polygenic risk scoring, genomic prediction, and linkage disequilibrium analysis. Published in <strong>Nature, Lancet, Nature Communications, Genome Biology, eLife, Blood, AJHG</strong> and more.</p>
                     <ul class="team-info-list">
                         <li><i class="fas fa-envelope"></i><span>chen.guobo@foxmail.com</span></li>
                         <li><i class="fas fa-building"></i><span>Clinical Research Institute, Zhejiang Provincial People's Hospital</span></li>
                         <li><i class="fab fa-orcid"></i><a href="https://orcid.org/0000-0001-5475-8237" target="_blank">0000-0001-5475-8237</a></li>
                         <li><i class="fab fa-github"></i><a href="https://github.com/gc5k" target="_blank">github.com/gc5k</a></li>
-                        <li><i class="fas fa-award"></i><span>Associate Editor, <em>Human Heredity</em></span></li>
+                        <li><i class="fas fa-award"></i><span data-i18n="team_editor">Associate Editor, <em>Human Heredity</em></span></li>
                     </ul>
                 </div>
                 <div class="team-values">
-                    <h3><i class="fas fa-compass"></i> Our Vision</h3>
+                    <h3><i class="fas fa-compass"></i> <span data-i18n="vision_title">Our Vision</span></h3>
                     <div class="value-item">
                         <i class="fas fa-flask"></i>
                         <div>
-                            <h4>Open Science</h4>
-                            <p>All tools and methods are open-source — serving the global research community without barriers.</p>
+                            <h4 data-i18n="value1_title">Open Science</h4>
+                            <p data-i18n="value1_desc">All tools and methods are open-source — serving the global research community without barriers.</p>
                         </div>
                     </div>
                     <div class="value-item">
                         <i class="fas fa-rocket"></i>
                         <div>
                             <h4>AI-for-Science</h4>
-                            <p>Harnessing AI and high-performance computing to push the boundaries of genomic discovery.</p>
+                            <p data-i18n="value2_desc">Harnessing AI and high-performance computing to push the boundaries of genomic discovery.</p>
                         </div>
                     </div>
                     <div class="value-item">
                         <i class="fas fa-handshake"></i>
                         <div>
-                            <h4>Industrial Translation</h4>
-                            <p>Bridging the gap between statistical methodology and real-world impact in precision medicine and smart breeding.</p>
+                            <h4 data-i18n="value3_title">Industrial Translation</h4>
+                            <p data-i18n="value3_desc">Bridging the gap between statistical methodology and real-world impact in precision medicine and smart breeding.</p>
                         </div>
                     </div>
                     <div class="value-item">
                         <i class="fas fa-shield-alt"></i>
                         <div>
-                            <h4>Privacy-Preserving</h4>
-                            <p>Building the next generation of genomic analysis that respects data sovereignty and enables cross-institution collaboration.</p>
+                            <h4 data-i18n="value4_title">Privacy-Preserving</h4>
+                            <p data-i18n="value4_desc">Building the next generation of genomic analysis that respects data sovereignty and enables cross-institution collaboration.</p>
                         </div>
                     </div>
                 </div>
@@ -1217,8 +1276,8 @@
                 <a href="https://orcid.org/0000-0001-5475-8237" target="_blank">ORCID</a>
             </div>
             <p class="footer-copy">
-                &copy; 2025 EigenGWAS Community · AI for Genomics Research Group<br>
-                Powered by AI-for-Science
+                <span data-i18n="footer_copy">&copy; 2025 EigenGWAS Community · AI for Genomics Research Group<br>
+                Powered by AI-for-Science</span>
             </p>
         </div>
     </footer>
@@ -1251,6 +1310,239 @@
                 }
             });
         }
+
+
+        // ===== LANGUAGE SWITCHING =====
+        const translations = {
+            en: {
+                page_title: "EigenGWAS Community — AI for Genomics & Statistical Genetics",
+                nav_research: "Research",
+                nav_tools: "Tools",
+                nav_publications: "Publications",
+                nav_team: "Team",
+                hero_title: "AI for Genomics",
+                hero_subtitle: "Statistical Genetics · Computational Genomics · Precision Medicine · Smart Breeding",
+                hero_tagline: "We develop statistical methods and AI-powered computational tools to decode large-scale genomic data — driving breakthroughs from biobank analytics to clinical translation and agricultural innovation.",
+                stat_publications: "Publications",
+                stat_tools: "Open Tools",
+                stat_partners: "Partners",
+                ai_badge_line1: "Statistical Genetics × HPC",
+                ai_badge_line2: "Next-Gen Genomics Paradigm",
+                research_label: "Research Directions",
+                research_title: "Core Research — AI for Science",
+                research_desc: "Computational methods and AI as engines, accelerating the translation from genomic data to discovery",
+                proj1_title: "EigenGWAS — Genomic Selection Scanning",
+                proj1_subtitle: "AI-Driven Detection of Natural Selection Signals",
+                proj1_desc: "Original unsupervised genomic scanning method based on eigenvector decomposition — detects natural selection signals without requiring population labels. Evolved from a methodological paper into a global online platform, widely applied in human population genetics, crop domestication, and animal genetic diversity research.",
+                proj1_tag1: "Population Genetics",
+                proj1_tag2: "Natural Selection",
+                proj1_tag3: "Crop Breeding",
+                proj1_tag4: "Open Platform",
+                proj2_title: "UK BioCoin — Privacy-Preserving Biobank Analytics",
+                proj2_subtitle: "Breaking the Permission Wall & Computation Wall",
+                proj2_desc: "Achieve user-defined covariate-adjusted trait-specific summary statistics regression without accessing individual-level data. 70-80x computational speedup — a new paradigm for privacy-preserving data sharing in precision medicine.",
+                proj2_tag1: "UK Biobank",
+                proj2_tag2: "Precision Medicine",
+                proj2_tag3: "Privacy-Preserving",
+                proj2_tag4: "Data Science",
+                proj3_title: "Genomic Prediction — AI-Powered Smart Breeding",
+                proj3_subtitle: "From Statistical Frontiers to Agricultural Productivity",
+                proj3_desc: "Novel genomic prediction combining Haseman-Elston regression with APY algorithm for ultra-large-scale genomic data. Translating cutting-edge statistical methods into real productivity for crop and livestock genetic improvement.",
+                proj3_tag1: "Smart Breeding",
+                proj3_tag2: "Genomic Selection",
+                proj3_tag3: "Industrial Translation",
+                proj4_title: "LD Atlas — Cross-Species Linkage Disequilibrium",
+                proj4_subtitle: "Genomic Infrastructure for GWAS & Heritability",
+                proj4_desc: "Building a cross-species LD reference atlas — critical infrastructure for GWAS, heritability estimation, and polygenic score computation. Enabling efficient estimation of large-scale LD patterns across diverse species.",
+                proj4_tag1: "Linkage Disequilibrium",
+                proj4_tag2: "Population Genetics",
+                proj4_tag3: "Data Infrastructure",
+                proj4_tag4: "Cross-Species",
+                proj5_title: "Clinical Genomics — Precision Medicine",
+                proj5_subtitle: "From Bench to Bedside via Statistical Genetics",
+                proj5_desc: "Applying statistical genetics to dissect the genetic architecture of gestational complications (GDM, ICP), inflammatory bowel disease, and COVID-19 vaccine immune response — driving genomic discoveries toward clinical translation.",
+                proj5_tag1: "Precision Medicine",
+                proj5_tag2: "Maternal Health",
+                proj5_tag3: "Complex Disease",
+                proj6_title: "Medical Cohort — Data Sharing Infrastructure",
+                proj6_subtitle: "Privacy-Preserving Cross-Institution Collaboration",
+                proj6_desc: "Exploring large-scale medical cohort building and sharing models, with encrypted genotype regression for cross-cohort relative search — enabling multi-center collaboration with data interoperability and privacy protection.",
+                proj6_tag1: "Data Sharing",
+                proj6_tag2: "Privacy-Preserving",
+                proj6_tag3: "Cohort Building",
+                proj6_tag4: "Cross-Site",
+                btn_platform: "Platform",
+                btn_paper: "Paper",
+                tools_label: "Open-Source Tools",
+                tools_title: "Software & Platforms",
+                tools_desc: "Open-source tool ecosystem serving the global research community",
+                tool1_desc: "Online interactive platform for detecting genomic signatures of natural selection. PLINK data format support, R-Shiny friendly interface.",
+                tool2_desc: "Genetic Analysis Repository — genomic analysis toolkit supporting EigenGWAS, ProPC, and multiple analytical methods.",
+                tool3_desc: "UK Biobank trait-specific summary statistics regression — 70-80x speedup, Docker deployment for reproducible research.",
+                tool4_desc: "Quantitative Genetic Analysis Station & GPU-accelerated multifactor dimensionality reduction for interaction detection.",
+                pub_label: "Publications",
+                pub_title: "Selected Publications",
+                pub_desc: "62+ papers in statistical genetics, computational genomics, precision medicine, and breeding (* corresponding author, # co-first author)",
+                announce_title: "EigenGWAS Community Migration",
+                announce_desc: "The EigenGWAS official community has fully migrated to the ModelScope platform, powered by advanced computing infrastructure and ecosystem services for researchers worldwide.",
+                announce_btn: "Visit ModelScope",
+                filter_all: "All",
+                filter_method: "Methods",
+                filter_clinical: "Clinical",
+                filter_breeding: "Breeding & Evo",
+                filter_software: "Software",
+                pub_footer_prefix: "Selected publications shown",
+                pub_footer_link: "View all 62+ papers →",
+                team_label: "Our Team",
+                team_title: "Team & Vision",
+                team_desc: "A cross-disciplinary team at the intersection of statistics, computation, and biology",
+                team_role: "Principal Investigator",
+                team_bio1: "Associate Professor at the Clinical Research Institute, Zhejiang Provincial People's Hospital. Postdoc with Prof. Peter Visscher (FRS) and Prof. Naomi Wray at the University of Queensland. Ph.D. in Bioinformatics from Zhejiang University.",
+                team_bio2: "Research spans GWAS, natural selection scanning, heritability estimation, polygenic risk scoring, genomic prediction, and linkage disequilibrium analysis. Published in <strong>Nature, Lancet, Nature Communications, Genome Biology, eLife, Blood, AJHG</strong> and more.",
+                team_editor: "Associate Editor, <em>Human Heredity</em>",
+                vision_title: "Our Vision",
+                value1_title: "Open Science",
+                value1_desc: "All tools and methods are open-source — serving the global research community without barriers.",
+                value2_desc: "Harnessing AI and high-performance computing to push the boundaries of genomic discovery.",
+                value3_title: "Industrial Translation",
+                value3_desc: "Bridging the gap between statistical methodology and real-world impact in precision medicine and smart breeding.",
+                value4_title: "Privacy-Preserving",
+                value4_desc: "Building the next generation of genomic analysis that respects data sovereignty and enables cross-institution collaboration.",
+                footer_copy: "© 2025 EigenGWAS Community · AI for Genomics Research Group<br>\n                Powered by AI-for-Science"
+            },
+            zh: {
+                page_title: "EigenGWAS 社区 — AI 赋能基因组学与统计遗传学",
+                nav_research: "研究方向",
+                nav_tools: "工具",
+                nav_publications: "论文",
+                nav_team: "团队",
+                hero_title: "AI 赋能基因组学",
+                hero_subtitle: "统计遗传学 · 计算基因组学 · 精准医学 · 智能育种",
+                hero_tagline: "我们开发统计方法与 AI 驱动的计算工具，解码大规模基因组数据 —— 推动从生物样本库分析到临床转化和农业创新的突破。",
+                stat_publications: "发表论文",
+                stat_tools: "开源工具",
+                stat_partners: "合作伙伴",
+                ai_badge_line1: "统计遗传学 × 高性能计算",
+                ai_badge_line2: "新一代基因组学范式",
+                research_label: "研究方向",
+                research_title: "核心研究 — AI 驱动科学发现",
+                research_desc: "以计算方法和人工智能为引擎，加速从基因组数据到科学发现的转化",
+                proj1_title: "EigenGWAS — 基因组选择扫描",
+                proj1_subtitle: "AI 驱动的自然选择信号检测",
+                proj1_desc: "原创的基于特征向量分解的无监督基因组扫描方法 —— 无需群体标签即可检测自然选择信号。已从方法学论文发展为全球在线平台，广泛应用于人类群体遗传学、作物驯化和动物遗传多样性研究。",
+                proj1_tag1: "群体遗传学",
+                proj1_tag2: "自然选择",
+                proj1_tag3: "作物育种",
+                proj1_tag4: "开放平台",
+                proj2_title: "UK BioCoin — 隐私保护生物样本库分析",
+                proj2_subtitle: "打破权限墙与计算墙",
+                proj2_desc: "在不访问个体数据的前提下，实现用户自定义协变量调整的特异性性状汇总统计回归。计算速度提升 70-80 倍 —— 精准医学中隐私保护数据共享的新范式。",
+                proj2_tag1: "英国生物样本库",
+                proj2_tag2: "精准医学",
+                proj2_tag3: "隐私保护",
+                proj2_tag4: "数据科学",
+                proj3_title: "基因组预测 — AI 驱动的智能育种",
+                proj3_subtitle: "从统计前沿到农业生产力",
+                proj3_desc: "将 Haseman-Elston 回归与 APY 算法相结合的新型基因组预测方法，适用于超大规模基因组数据。将前沿统计方法转化为作物和畜禽遗传改良的实际生产力。",
+                proj3_tag1: "智能育种",
+                proj3_tag2: "基因组选择",
+                proj3_tag3: "产业转化",
+                proj4_title: "LD Atlas — 跨物种连锁不平衡",
+                proj4_subtitle: "GWAS 与遗传力的基因组基础设施",
+                proj4_desc: "构建跨物种 LD 参考图谱 —— GWAS、遗传力估计和多基因评分计算的关键基础设施。实现跨物种大规模 LD 模式的高效估计。",
+                proj4_tag1: "连锁不平衡",
+                proj4_tag2: "群体遗传学",
+                proj4_tag3: "数据基础设施",
+                proj4_tag4: "跨物种",
+                proj5_title: "临床基因组学 — 精准医学",
+                proj5_subtitle: "从实验室到临床的统计遗传学",
+                proj5_desc: "应用统计遗传学解析妊娠并发症（妊娠期糖尿病、肝内胆汁淤积）、炎症性肠病和新冠疫苗免疫反应的遗传结构 —— 推动基因组发现向临床转化。",
+                proj5_tag1: "精准医学",
+                proj5_tag2: "母体健康",
+                proj5_tag3: "复杂疾病",
+                proj6_title: "医学队列 — 数据共享基础设施",
+                proj6_subtitle: "隐私保护的跨机构协作",
+                proj6_desc: "探索大规模医学队列建设与共享模式，利用加密基因型回归实现跨队列亲属搜索 —— 在数据互通和隐私保护的前提下实现多中心协作。",
+                proj6_tag1: "数据共享",
+                proj6_tag2: "隐私保护",
+                proj6_tag3: "队列建设",
+                proj6_tag4: "跨中心",
+                btn_platform: "平台",
+                btn_paper: "论文",
+                tools_label: "开源工具",
+                tools_title: "软件与平台",
+                tools_desc: "面向全球研究社区的开源工具生态",
+                tool1_desc: "在线交互式平台，用于检测基因组自然选择信号。支持 PLINK 数据格式，R-Shiny 友好界面。",
+                tool2_desc: "遗传分析仓库 —— 支持 EigenGWAS、ProPC 及多种分析方法的基因组分析工具包。",
+                tool3_desc: "英国生物样本库特异性性状汇总统计回归 —— 速度提升 70-80 倍，Docker 部署支持可重复研究。",
+                tool4_desc: "定量遗传分析工作站与 GPU 加速多因子降维方法，用于基因互作检测。",
+                pub_label: "发表论文",
+                pub_title: "代表性论文",
+                pub_desc: "62+ 篇统计遗传学、计算基因组学、精准医学和育种领域论文（* 通讯作者，# 共同第一作者）",
+                announce_title: "EigenGWAS 社区迁移公告",
+                announce_desc: "EigenGWAS 官方社区已全面迁移至 ModelScope（魔搭）平台，依托先进的计算基础设施和生态服务，面向全球研究者开放。",
+                announce_btn: "访问 ModelScope",
+                filter_all: "全部",
+                filter_method: "方法学",
+                filter_clinical: "临床医学",
+                filter_breeding: "育种与进化",
+                filter_software: "软件",
+                pub_footer_prefix: "展示部分代表性论文",
+                pub_footer_link: "查看全部 62+ 篇论文 →",
+                team_label: "我们的团队",
+                team_title: "团队与愿景",
+                team_desc: "一支跨越统计学、计算科学与生物学的跨学科团队",
+                team_role: "课题负责人",
+                team_bio1: "浙江省人民医院临床研究所副教授。曾在澳大利亚昆士兰大学跟随 Peter Visscher 教授（FRS）和 Naomi Wray 教授从事博士后研究。浙江大学生物信息学博士。",
+                team_bio2: "研究方向涵盖 GWAS、自然选择扫描、遗传力估计、多基因风险评分、基因组预测和连锁不平衡分析。研究成果发表于 <strong>Nature、Lancet、Nature Communications、Genome Biology、eLife、Blood、AJHG</strong> 等期刊。",
+                team_editor: "副编辑，<em>Human Heredity</em>",
+                vision_title: "我们的愿景",
+                value1_title: "开放科学",
+                value1_desc: "所有工具和方法均开源 —— 无壁垒地服务全球研究社区。",
+                value2_desc: "利用人工智能和高性能计算，推动基因组学发现的边界。",
+                value3_title: "产业转化",
+                value3_desc: "弥合统计方法学与精准医学和智能育种实际影响之间的鸿沟。",
+                value4_title: "隐私保护",
+                value4_desc: "构建尊重数据主权、支持跨机构协作的新一代基因组分析体系。",
+                footer_copy: "© 2025 EigenGWAS 社区 · AI 赋能基因组学研究组<br>\n                由 AI-for-Science 驱动"
+            }
+        };
+
+        function switchLang(lang) {
+            const dict = translations[lang];
+            if (!dict) return;
+            document.documentElement.lang = lang;
+            // Update all data-i18n elements
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (dict[key] !== undefined) {
+                    // Check if the translation contains HTML tags
+                    if (/<[a-z][\s\S]*>/i.test(dict[key])) {
+                        el.innerHTML = dict[key];
+                    } else {
+                        el.textContent = dict[key];
+                    }
+                }
+            });
+            // Update active button
+            document.getElementById('langEn').classList.toggle('active', lang === 'en');
+            document.getElementById('langZh').classList.toggle('active', lang === 'zh');
+            // Save preference
+            localStorage.setItem('lang', lang);
+            // Update page title
+            document.title = dict.page_title;
+        }
+
+        // Init language from localStorage or browser preference
+        (function() {
+            const saved = localStorage.getItem('lang');
+            if (saved) {
+                switchLang(saved);
+            } else if (navigator.language && navigator.language.startsWith('zh')) {
+                switchLang('zh');
+            }
+        })();
+
     </script>
 </body>
 </html>
