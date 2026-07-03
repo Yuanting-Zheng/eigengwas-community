@@ -3,744 +3,1199 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EigenGWAS Community — 群体基因组选择位点扫描与生物计算分析平台</title>
-    <meta name="description" content="EigenGWAS 官方社区 — 专注于群体基因组选择位点扫描与生物计算分析的开源科研平台">
+    <title>陈国波教授课题组 — AI for Genomics & Statistical Genetics</title>
+    <meta name="description" content="Guo-Bo Chen's Research Group — Statistical Genetics, Computational Genomics, AI for Science">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         :root {
-            --primary: #1a5276;
-            --primary-light: #2980b9;
-            --primary-dark: #0e2f44;
-            --accent: #e74c3c;
-            --accent-warm: #f39c12;
-            --bg-light: #f8f9fa;
+            --primary: #0f3460;
+            --primary-light: #16538d;
+            --primary-dark: #091f3a;
+            --accent: #e94560;
+            --accent-warm: #f5a623;
+            --accent-green: #27ae60;
+            --accent-purple: #8e44ad;
+            --accent-teal: #00b894;
+            --bg-light: #f4f6f9;
             --bg-white: #ffffff;
-            --text-dark: #2c3e50;
-            --text-muted: #6c757d;
-            --border: #e0e6ed;
-            --gradient-start: #1a5276;
-            --gradient-end: #2980b9;
+            --text-dark: #1a1a2e;
+            --text-body: #374151;
+            --text-muted: #6b7280;
+            --border: #e5e7eb;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
             --shadow: 0 4px 20px rgba(0,0,0,0.08);
-            --shadow-hover: 0 8px 30px rgba(0,0,0,0.12);
+            --shadow-lg: 0 10px 40px rgba(0,0,0,0.12);
+            --radius: 16px;
+            --radius-sm: 8px;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Noto Sans SC', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            color: var(--text-dark);
-            line-height: 1.8;
+            font-family: 'Inter', 'Noto Sans SC', -apple-system, sans-serif;
+            color: var(--text-body);
+            line-height: 1.7;
             background: var(--bg-light);
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* Navigation */
+        /* ===== NAVIGATION ===== */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(255,255,255,0.97);
-            backdrop-filter: blur(10px);
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(20px);
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
-            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(0,0,0,0.06);
         }
-
-        .nav-container {
+        .nav-inner {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            height: 70px;
+            height: 64px;
         }
-
         .nav-brand {
-            font-size: 1.4rem;
             font-weight: 700;
+            font-size: 1.1rem;
             color: var(--primary);
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.6rem;
         }
-
-        .nav-brand i {
-            color: var(--primary-light);
+        .nav-brand .dot {
+            width: 8px; height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
         }
-
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 2rem;
+            gap: 1.8rem;
         }
-
         .nav-links a {
             text-decoration: none;
-            color: var(--text-dark);
+            color: var(--text-muted);
             font-weight: 500;
-            font-size: 0.95rem;
-            transition: color 0.3s;
-            position: relative;
+            font-size: 0.88rem;
+            transition: color 0.2s;
         }
-
-        .nav-links a:hover {
-            color: var(--primary-light);
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary-light);
-            transition: width 0.3s;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
+        .nav-links a:hover { color: var(--primary); }
         .nav-toggle {
             display: none;
             background: none;
             border: none;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             color: var(--primary);
             cursor: pointer;
         }
 
-        /* Hero Section */
+        /* ===== HERO ===== */
         .hero {
-            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 50%, var(--primary-light) 100%);
             color: white;
-            padding: 160px 2rem 100px;
-            text-align: center;
+            padding: 140px 2rem 80px;
             position: relative;
             overflow: hidden;
         }
-
-        .hero::before {
+        .hero::after {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cdefs%3E%3Cpattern id='p' width='20' height='20' patternUnits='userSpaceOnUse'%3E%3Ccircle cx='1' cy='1' r='1' fill='rgba(255,255,255,0.04)'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='100' height='100' fill='url(%23p)'/%3E%3C/svg%3E");
         }
-
         .hero-content {
             position: relative;
             z-index: 1;
-            max-width: 800px;
+            max-width: 1200px;
             margin: 0 auto;
         }
-
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 3rem;
+            align-items: center;
+        }
         .hero h1 {
-            font-size: 3rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            letter-spacing: -0.5px;
+            font-size: 2.8rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 0.3rem;
         }
-
-        .hero .subtitle {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            margin-bottom: 2rem;
-            font-weight: 300;
+        .hero h1 span {
+            font-weight: 400;
+            opacity: 0.7;
+            font-size: 0.6em;
+            display: block;
+            margin-top: 0.3rem;
         }
-
-        .hero-badges {
+        .hero .tagline {
+            font-size: 1.15rem;
+            opacity: 0.85;
+            margin: 1rem 0 1.5rem;
+            max-width: 600px;
+            line-height: 1.8;
+        }
+        .hero-stats {
             display: flex;
-            justify-content: center;
-            gap: 1rem;
+            gap: 2rem;
             flex-wrap: wrap;
         }
-
-        .badge {
-            background: rgba(255,255,255,0.15);
-            border: 1px solid rgba(255,255,255,0.3);
-            padding: 0.5rem 1.2rem;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            backdrop-filter: blur(5px);
+        .stat-item {
+            text-align: center;
+        }
+        .stat-num {
+            font-size: 2.2rem;
+            font-weight: 800;
+            display: block;
+        }
+        .stat-label {
+            font-size: 0.78rem;
+            opacity: 0.7;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .hero-ai-badge {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 12px;
+            padding: 1.5rem 2rem;
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+        .hero-ai-badge .ai-icon {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+        .hero-ai-badge h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+        .hero-ai-badge p {
+            font-size: 0.8rem;
+            opacity: 0.7;
         }
 
-        /* Main Content */
+        /* ===== CONTAINER ===== */
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 2rem;
         }
+        .section { padding: 5rem 0; }
 
-        /* Announcement Section */
-        .announcement-section {
-            margin-top: -50px;
-            position: relative;
-            z-index: 10;
-            margin-bottom: 4rem;
+        /* ===== SECTION TITLES ===== */
+        .sec-header {
+            margin-bottom: 3rem;
+        }
+        .sec-header .label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .sec-header h2 {
+            font-size: 2rem;
+            color: var(--text-dark);
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        .sec-header p {
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+            max-width: 700px;
         }
 
-        .announcement-card {
+        /* ===== ABOUT SECTION ===== */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+        }
+        .about-text p {
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+        .about-sidebar {
             background: var(--bg-white);
-            border-radius: 16px;
-            box-shadow: var(--shadow);
-            padding: 3rem;
-            border-left: 5px solid var(--accent);
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: var(--shadow-sm);
+            height: fit-content;
         }
-
-        .announcement-header {
+        .about-sidebar h4 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+        .info-item {
             display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 1px solid var(--border);
+            align-items: flex-start;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+            font-size: 0.88rem;
+        }
+        .info-item i {
+            color: var(--primary-light);
+            margin-top: 3px;
+            width: 16px;
+        }
+        .info-item a {
+            color: var(--primary-light);
+            text-decoration: none;
         }
 
-        .announcement-icon {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, var(--accent), #c0392b);
+        /* ===== HIGHLIGHTED PROJECTS ===== */
+        .projects-bg { background: var(--bg-white); }
+        .project-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 1.5rem;
+        }
+        .project-card {
+            border-radius: var(--radius);
+            padding: 2rem;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+        }
+        .project-card:hover {
+            border-color: transparent;
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-3px);
+        }
+        .project-card .icon-wrap {
+            width: 48px; height: 48px;
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 1.2rem;
             color: white;
-            font-size: 1.3rem;
-            flex-shrink: 0;
-        }
-
-        .announcement-header h2 {
-            font-size: 1.6rem;
-            color: var(--primary-dark);
-        }
-
-        .announcement-body {
-            font-size: 1rem;
-            line-height: 2;
-            color: #444;
-        }
-
-        .announcement-body p {
             margin-bottom: 1.2rem;
-            text-indent: 2em;
         }
-
-        .announcement-body .highlight-link {
-            color: var(--primary-light);
-            font-weight: 600;
-            text-decoration: none;
-            border-bottom: 2px solid transparent;
-            transition: border-color 0.3s;
-        }
-
-        .announcement-body .highlight-link:hover {
-            border-bottom-color: var(--primary-light);
-        }
-
-        .migration-cta {
-            background: linear-gradient(135deg, #f8f9fa, #e8f4f8);
-            border-radius: 12px;
-            padding: 2rem;
-            margin: 2rem 0;
-            text-align: center;
-            border: 1px solid #d4edda;
-        }
-
-        .migration-cta h3 {
-            color: var(--primary);
-            margin-bottom: 0.8rem;
-            font-size: 1.3rem;
-        }
-
-        .migration-cta a {
-            display: inline-block;
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            color: white;
-            padding: 0.8rem 2rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            margin-top: 1rem;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .migration-cta a:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(26,82,118,0.3);
-        }
-
-        .signature {
-            text-align: right;
-            font-style: italic;
-            color: var(--text-muted);
-            margin-top: 2rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid var(--border);
-        }
-
-        /* Publications Section */
-        .section {
-            padding: 5rem 0;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .section-title h2 {
-            font-size: 2rem;
-            color: var(--primary-dark);
+        .project-card h3 {
+            font-size: 1.15rem;
+            color: var(--text-dark);
             margin-bottom: 0.5rem;
         }
-
-        .section-title p {
+        .project-card .subtitle {
+            font-size: 0.82rem;
             color: var(--text-muted);
-            font-size: 1.05rem;
-        }
-
-        .pub-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
-            gap: 2rem;
-        }
-
-        .pub-card {
-            background: var(--bg-white);
-            border-radius: 16px;
-            box-shadow: var(--shadow);
-            padding: 2.5rem;
-            transition: transform 0.3s, box-shadow 0.3s;
-            border-top: 4px solid var(--primary-light);
-        }
-
-        .pub-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .pub-journal {
-            display: inline-block;
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            color: white;
-            padding: 0.3rem 0.8rem;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-weight: 600;
             margin-bottom: 1rem;
         }
-
-        .pub-card h3 {
-            font-size: 1.1rem;
-            color: var(--primary-dark);
-            margin-bottom: 0.8rem;
-            line-height: 1.5;
-        }
-
-        .pub-authors {
-            color: var(--text-muted);
-            font-size: 0.88rem;
+        .project-card p {
+            font-size: 0.9rem;
             margin-bottom: 1rem;
-        }
-
-        .pub-abstract {
-            font-size: 0.92rem;
-            color: #555;
-            margin-bottom: 1.5rem;
             line-height: 1.7;
         }
-
-        .pub-links {
+        .project-tags {
             display: flex;
-            gap: 0.8rem;
             flex-wrap: wrap;
-        }
-
-        .pub-link {
-            display: inline-flex;
-            align-items: center;
             gap: 0.4rem;
-            padding: 0.5rem 1rem;
+        }
+        .project-tags span {
+            font-size: 0.72rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            background: var(--bg-light);
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+        .project-links {
+            display: flex;
+            gap: 0.6rem;
+            margin-top: 1rem;
+        }
+        .project-links a {
+            font-size: 0.8rem;
+            padding: 0.3rem 0.8rem;
             border-radius: 6px;
             text-decoration: none;
-            font-size: 0.85rem;
             font-weight: 500;
             transition: all 0.2s;
         }
-
-        .pub-link.primary {
+        .pl-primary {
             background: var(--primary);
             color: white;
         }
-
-        .pub-link.primary:hover {
-            background: var(--primary-light);
-        }
-
-        .pub-link.secondary {
-            background: #eef2f7;
-            color: var(--primary);
+        .pl-primary:hover { background: var(--primary-light); }
+        .pl-secondary {
+            background: var(--bg-light);
+            color: var(--text-body);
             border: 1px solid var(--border);
         }
 
-        .pub-link.secondary:hover {
-            background: #dce6f0;
-        }
+        /* Color themes for project cards */
+        .pc-blue::before { background: var(--primary-light); }
+        .pc-blue .icon-wrap { background: linear-gradient(135deg, var(--primary), var(--primary-light)); }
+        .pc-red::before { background: var(--accent); }
+        .pc-red .icon-wrap { background: linear-gradient(135deg, #c0392b, var(--accent)); }
+        .pc-green::before { background: var(--accent-green); }
+        .pc-green .icon-wrap { background: linear-gradient(135deg, #1e8449, var(--accent-green)); }
+        .pc-purple::before { background: var(--accent-purple); }
+        .pc-purple .icon-wrap { background: linear-gradient(135deg, #6c3483, var(--accent-purple)); }
+        .pc-teal::before { background: var(--accent-teal); }
+        .pc-teal .icon-wrap { background: linear-gradient(135deg, #00897b, var(--accent-teal)); }
+        .pc-warm::before { background: var(--accent-warm); }
+        .pc-warm .icon-wrap { background: linear-gradient(135deg, #d68910, var(--accent-warm)); }
 
-        /* Research Section */
-        .research-section {
-            background: var(--bg-white);
-        }
-
-        .research-grid {
+        /* ===== SOFTWARE TOOLS ===== */
+        .tools-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
         }
-
-        .research-card {
-            padding: 2rem;
-            border-radius: 12px;
-            background: var(--bg-light);
+        .tool-card {
+            background: var(--bg-white);
+            border-radius: var(--radius);
+            padding: 1.8rem;
             border: 1px solid var(--border);
             transition: all 0.3s;
         }
-
-        .research-card:hover {
-            border-color: var(--primary-light);
+        .tool-card:hover {
             box-shadow: var(--shadow);
+            border-color: var(--primary-light);
         }
-
-        .research-card i {
-            font-size: 2rem;
+        .tool-card h4 {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        .tool-card p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 0.8rem;
+        }
+        .tool-card a {
+            font-size: 0.82rem;
             color: var(--primary-light);
-            margin-bottom: 1rem;
+            text-decoration: none;
+            font-weight: 500;
         }
 
-        .research-card h3 {
+        /* ===== PUBLICATIONS ===== */
+        .pub-section { background: var(--bg-white); }
+        .pub-filter {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+        .pub-filter button {
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            background: var(--bg-white);
+            color: var(--text-muted);
+            font-size: 0.82rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+        .pub-filter button:hover,
+        .pub-filter button.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        .pub-list { list-style: none; }
+        .pub-item {
+            padding: 1.2rem 0;
+            border-bottom: 1px solid var(--border);
+            display: grid;
+            grid-template-columns: 50px 1fr auto;
+            gap: 1rem;
+            align-items: flex-start;
+            font-size: 0.88rem;
+        }
+        .pub-item:last-child { border-bottom: none; }
+        .pub-num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            background: var(--bg-light);
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            text-align: center;
+            font-weight: 500;
+        }
+        .pub-content { line-height: 1.6; }
+        .pub-title {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+        .pub-journal-name {
+            font-style: italic;
+            color: var(--primary-light);
+        }
+        .pub-authors-line {
+            color: var(--text-muted);
+            font-size: 0.82rem;
+            margin-top: 0.2rem;
+        }
+        .pub-links-inline {
+            display: flex;
+            gap: 0.4rem;
+            align-items: flex-start;
+        }
+        .pub-links-inline a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px; height: 32px;
+            border-radius: 6px;
+            background: var(--bg-light);
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.8rem;
+            transition: all 0.2s;
+        }
+        .pub-links-inline a:hover {
+            background: var(--primary);
+            color: white;
+        }
+        .pub-links-inline a.nature-badge {
+            background: linear-gradient(135deg, #c0392b, #e74c3c);
+            color: white;
+        }
+        .pub-links-inline a.nature-badge:hover {
+            opacity: 0.9;
+        }
+
+        /* ===== ANNOUNCEMENT BANNER ===== */
+        .announce-banner {
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+            border: 1px solid #f0d78e;
+            border-radius: var(--radius);
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+        .announce-banner h3 {
+            color: #856404;
             font-size: 1.1rem;
             margin-bottom: 0.8rem;
-            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .announce-banner p {
+            font-size: 0.9rem;
+            color: #664d03;
+            margin-bottom: 1rem;
+        }
+        .announce-banner a {
+            display: inline-block;
+            background: #856404;
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
         }
 
-        .research-card p {
-            font-size: 0.92rem;
-            color: var(--text-muted);
-            line-height: 1.7;
-        }
-
-        /* Footer */
+        /* ===== FOOTER ===== */
         footer {
             background: var(--primary-dark);
-            color: rgba(255,255,255,0.8);
+            color: rgba(255,255,255,0.7);
             padding: 3rem 2rem;
             text-align: center;
         }
-
-        .footer-content {
+        .footer-inner {
             max-width: 800px;
             margin: 0 auto;
         }
-
         .footer-links {
             display: flex;
             justify-content: center;
-            gap: 2rem;
-            margin-bottom: 1.5rem;
+            gap: 1.5rem;
             flex-wrap: wrap;
+            margin-bottom: 1.5rem;
         }
-
         .footer-links a {
-            color: rgba(255,255,255,0.7);
+            color: rgba(255,255,255,0.6);
             text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .footer-links a:hover {
-            color: white;
-        }
-
-        .footer-copy {
             font-size: 0.85rem;
-            opacity: 0.7;
+            transition: color 0.2s;
+        }
+        .footer-links a:hover { color: white; }
+        .footer-copy {
+            font-size: 0.8rem;
+            opacity: 0.5;
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 70px;
-                left: 0;
-                right: 0;
-                background: white;
-                flex-direction: column;
-                padding: 1rem 2rem;
-                box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .nav-toggle {
-                display: block;
-            }
-
-            .hero {
-                padding: 130px 1.5rem 80px;
-            }
-
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .announcement-card {
-                padding: 1.5rem;
-            }
-
-            .pub-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .announcement-body p {
-                text-indent: 0;
-            }
-        }
-
-        /* Scroll Animation */
-        .fade-in {
+        /* ===== ANIMATIONS ===== */
+        .fade-up {
             opacity: 0;
             transform: translateY(20px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
+            transition: opacity 0.5s ease, transform 0.5s ease;
         }
-
-        .fade-in.visible {
+        .fade-up.visible {
             opacity: 1;
             transform: translateY(0);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .nav-links { display: none; position: absolute; top: 64px; left: 0; right: 0; background: white; flex-direction: column; padding: 1rem 2rem; box-shadow: var(--shadow); }
+            .nav-links.active { display: flex; }
+            .nav-toggle { display: block; }
+            .hero { padding: 120px 1.5rem 60px; }
+            .hero h1 { font-size: 2rem; }
+            .hero-grid { grid-template-columns: 1fr; }
+            .hero-ai-badge { display: none; }
+            .about-grid { grid-template-columns: 1fr; }
+            .project-cards { grid-template-columns: 1fr; }
+            .pub-item { grid-template-columns: 40px 1fr; }
+            .pub-links-inline { grid-column: 1 / -1; }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
+    <!-- NAV -->
     <nav>
-        <div class="nav-container">
-            <a href="#" class="nav-brand">
-                <i class="fas fa-dna"></i> EigenGWAS
-            </a>
-            <button class="nav-toggle" onclick="toggleNav()">
-                <i class="fas fa-bars"></i>
-            </button>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="#announcement">社区公告</a></li>
-                <li><a href="#publications">研究成果</a></li>
-                <li><a href="#research">研究方向</a></li>
-                <li><a href="https://github.com/Ttttt47/UKBioCoin" target="_blank">GitHub</a></li>
+        <div class="nav-inner">
+            <a href="#" class="nav-brand"><span class="dot"></span> Guo-Bo Chen Lab</a>
+            <button class="nav-toggle" onclick="document.getElementById('navL').classList.toggle('active')"><i class="fas fa-bars"></i></button>
+            <ul class="nav-links" id="navL">
+                <li><a href="#about">简介</a></li>
+                <li><a href="#projects">研究方向</a></li>
+                <li><a href="#tools">工具平台</a></li>
+                <li><a href="#publications">发表论文</a></li>
+                <li><a href="#community">社区</a></li>
             </ul>
         </div>
     </nav>
 
-    <!-- Hero -->
+    <!-- HERO -->
     <section class="hero">
         <div class="hero-content">
-            <h1>EigenGWAS Community</h1>
-            <p class="subtitle">专注于群体基因组选择位点扫描与生物计算分析的开源科研平台</p>
-            <div class="hero-badges">
-                <span class="badge"><i class="fas fa-project-diagram"></i>&nbsp; 群体遗传学</span>
-                <span class="badge"><i class="fas fa-chart-line"></i>&nbsp; GWAS 分析</span>
-                <span class="badge"><i class="fas fa-code-branch"></i>&nbsp; 开源工具</span>
-                <span class="badge"><i class="fas fa-globe-asia"></i>&nbsp; 社区驱动</span>
+            <div class="hero-grid">
+                <div>
+                    <h1>陈国波 教授<span>Guo-Bo Chen, Ph.D. — Statistical Genetics &amp; AI for Genomics</span></h1>
+                    <p class="tagline">浙江大学 / 浙江省人民医院临床研究所<br>博士后经历：昆士兰大学 Peter Visscher 院士课题组 (FRS)、阿拉巴马大学伯明翰分校<br>致力于用计算方法与人工智能解析大规模基因组数据，推动精准医学与智慧育种</p>
+                    <div class="hero-stats">
+                        <div class="stat-item"><span class="stat-num">62+</span><span class="stat-label">发表论文</span></div>
+                        <div class="stat-item"><span class="stat-num">Nature</span><span class="stat-label">顶级期刊</span></div>
+                        <div class="stat-item"><span class="stat-num">4</span><span class="stat-label">软件工具</span></div>
+                        <div class="stat-item"><span class="stat-num">15+</span><span class="stat-label">合作机构</span></div>
+                    </div>
+                </div>
+                <div class="hero-ai-badge">
+                    <div class="ai-icon"><i class="fas fa-brain"></i></div>
+                    <h3>AI-for-Science</h3>
+                    <p>统计遗传学 × 高性能计算<br>驱动基因组学新范式</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Announcement -->
-    <section class="announcement-section" id="announcement">
+    <!-- ABOUT -->
+    <section class="section" id="about">
         <div class="container">
-            <div class="announcement-card fade-in">
-                <div class="announcement-header">
-                    <div class="announcement-icon">
-                        <i class="fas fa-bullhorn"></i>
+            <div class="about-grid fade-up">
+                <div class="about-text">
+                    <div class="sec-header">
+                        <div class="label">About</div>
+                        <h2>学术简介</h2>
                     </div>
-                    <h2>EigenGWAS 社区迁移公告</h2>
+                    <p>陈国波教授现任浙江省人民医院临床研究所副教授，长期从事<strong>统计遗传学、计算基因组学与生物信息学</strong>研究。博士毕业于浙江大学生物信息学方向，先后在阿拉巴马大学伯明翰分校、澳大利亚昆士兰大学（Peter Visscher 院士与 Naomi Wray 院士课题组）从事博士后研究。</p>
+                    <p>研究方向聚焦于开发<strong>大规模基因组数据分析的统计方法与计算工具</strong>，涵盖全基因组关联分析 (GWAS)、自然选择位点检测 (EigenGWAS)、遗传力估计、多基因风险评分、基因组预测、连锁不平衡解析等核心领域。研究成果发表于 Nature、Lancet、Nature Communications、Genome Biology、eLife、Blood、J Hepatology、American Journal of Human Genetics 等顶级期刊。</p>
+                    <p>近年来重点推进 <strong>AI-for-Science</strong> 方向：将高性能计算、隐私保护数据科学与基因组学深度融合，开发面向生物样本库级别数据的分析框架 (UK BioCoin)，以及面向精准医学与智慧育种的基因组预测系统，致力于让基因组学研究成果高效转化为临床应用与产业价值。</p>
+                    <p>主持和参与多项国家自然科学基金项目，开发多套开源软件工具 (GEAR、EigenGWAS、UK BioCoin 等)，服务全球科研社区。同时担任 Human Heredity 副主编及多本国际期刊审稿人。</p>
                 </div>
-                <div class="announcement-body">
-                    <p>致所有陪伴 EigenGWAS 成长的生物信息研究者、基因组科研从业者与社区伙伴：</p>
-
-                    <p>时光沉淀初心，陪伴皆是温暖。作为专注于群体基因组选择位点扫描与生物计算分析的专业平台，自 EigenGWAS 开源上线以来，承蒙各位多年的信任、支持与深耕共建，社区得以稳步成长、持续迭代。一路走来，感谢每一位使用者的陪伴与包容，更感谢大家源源不断的真实科研反馈、宝贵优化建议与实战分析经验分享。正是每一次严谨的实操打磨、每一场专业的学术交流，让 EigenGWAS 持续迭代优化，不断适配复杂基因组数据分析、群体遗传研究等各类生物科研场景，构筑起深耕生物计算领域、纯粹且专业的开源科研交流生态。</p>
-
-                    <p>为给广大生物科研工作者带来更优质、更稳定、更高效的基因组分析与生物计算体验，支撑超大通量基因组数据处理、大规模群体遗传位点扫描与复杂生物数据科研实践，经过团队统筹规划与筹备，<strong>即日起，EigenGWAS 官方社区全面迁移至杭州魔塔（ModelScope）社区。</strong></p>
-
-                    <p>依托魔塔社区成熟的技术底座与一站式算力服务能力，本次迁移将为 EigenGWAS 赋能更大的科研生态空间、更强的高性能算力支撑与更稳定的生物计算服务体系。升级后可高效支撑海量基因组数据运算、加速群体遗传位点分析流程、突破传统生物计算的算力瓶颈，大幅提升科研分析效率，为各位研究者的基因组科研探索、生物算法迭代、数据分析落地提供强劲助力，同时更高效承接大家的科研问题反馈、功能优化建议与学术共建需求。</p>
-
-                    <p>初心不改，步履不停。此次迁移是迭代升级，更是全新启程，我们过往的所有沉淀、积累的社区氛围与技术初心将全数延续。</p>
-
-                    <div class="migration-cta">
-                        <h3><i class="fas fa-rocket"></i>&nbsp; 移步新社区</h3>
-                        <p>诚挚邀请各位新老科研伙伴移步杭州魔塔社区 EigenGWAS 专属板块，继续携手同行、深耕生物计算、共享科研成果、共建开源生态。</p>
-                        <a href="https://modelscope.cn" target="_blank">
-                            <i class="fas fa-external-link-alt"></i>&nbsp; 前往 ModelScope 社区
-                        </a>
-                    </div>
-
-                    <p>未来我们将持续迭代算法能力、打磨基因组分析功能、完善配套科研文档、优化生物数据计算流程，积极响应社区科研需求，持续输出优质的技术支持与科研服务，期待与大家持续深耕群体遗传、基因组学等相关领域，共筑高质量生物计算开源科研生态！</p>
-
-                    <p>再次感谢大家多年以来的热爱与坚守，新的阵地，我们不见不散！</p>
-
-                    <div class="signature">
-                        <strong>EigenGWAS 团队</strong>
-                    </div>
+                <div class="about-sidebar">
+                    <h4>联系方式</h4>
+                    <div class="info-item"><i class="fas fa-envelope"></i><span>chen.guobo@foxmail.com</span></div>
+                    <div class="info-item"><i class="fas fa-building"></i><span>浙江省人民医院 临床研究所</span></div>
+                    <div class="info-item"><i class="fas fa-graduation-cap"></i><span>浙江大学 博士 (2003-2009)</span></div>
+                    <div class="info-item"><i class="fab fa-orcid"></i><a href="https://orcid.org/0000-0001-5475-8237" target="_blank">0000-0001-5475-8237</a></div>
+                    <div class="info-item"><i class="fab fa-github"></i><a href="https://github.com/gc5k" target="_blank">github.com/gc5k</a></div>
+                    <h4 style="margin-top:1.5rem">学术任职</h4>
+                    <div class="info-item"><i class="fas fa-award"></i><span>Human Heredity · 副主编</span></div>
+                    <div class="info-item"><i class="fas fa-check-circle"></i><span>Nature Communications, AJHG, Genome Biology, eLife 等期刊审稿人</span></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Publications -->
-    <section class="section" id="publications">
+    <!-- HIGHLIGHTED PROJECTS -->
+    <section class="section projects-bg" id="projects">
         <div class="container">
-            <div class="section-title fade-in">
-                <h2><i class="fas fa-book-open"></i>&nbsp; 核心研究成果</h2>
-                <p>Professor Guo-Bo Chen 团队代表性学术发表</p>
+            <div class="sec-header fade-up">
+                <div class="label">Research Highlights</div>
+                <h2>核心研究方向 — AI for Science</h2>
+                <p>以计算方法与人工智能为引擎，驱动基因组学从数据到发现的加速转化</p>
             </div>
-            <div class="pub-grid">
-                <!-- Paper 1: EigenGWAS -->
-                <div class="pub-card fade-in">
-                    <span class="pub-journal">Molecular Ecology Resources · 2021</span>
-                    <h3>EigenGWAS: An online visualizing and interactive application for detecting genomic signatures of natural selection</h3>
-                    <p class="pub-authors">
-                        Guo-An Qi<sup>*</sup>, Yuan-Ting Zheng<sup>*</sup>, Feng Lin, Xin Huang, Li-Wen Duan, Yue You, Hailan Liu, Ying Wang, Hai-Ming Xu<sup>†</sup>, <strong>Guo-Bo Chen</strong><sup>†</sup>
-                    </p>
-                    <p class="pub-abstract">
-                        开发了一种无监督的基因组扫描方法 EigenGWAS，类似于 F<sub>ST</sub> 但不需要群体分组信息，用于检测受选择基因组区域。将 EigenGWAS 扩展至近交群体，并证明基因组膨胀因子是遗传漂移校正的更优选择。构建了高效在线平台，接受标准 PLINK 二进制格式数据，通过 R-Shiny 界面提供可视化结果。
-                    </p>
-                    <div class="pub-links">
-                        <a href="https://pubmed.ncbi.nlm.nih.gov/33665976/" target="_blank" class="pub-link primary">
-                            <i class="fas fa-external-link-alt"></i> PubMed
-                        </a>
-                        <a href="https://doi.org/10.1111/1755-0998.13370" target="_blank" class="pub-link secondary">
-                            <i class="fas fa-link"></i> DOI
-                        </a>
-                        <a href="https://www.eigengwas.com" target="_blank" class="pub-link secondary">
-                            <i class="fas fa-globe"></i> 在线平台
-                        </a>
+            <div class="project-cards">
+                <!-- Project 1: EigenGWAS -->
+                <div class="project-card pc-blue fade-up">
+                    <div class="icon-wrap"><i class="fas fa-dna"></i></div>
+                    <h3>EigenGWAS — 自然选择的基因组扫描</h3>
+                    <div class="subtitle">AI-Driven Genomic Selection Scanning</div>
+                    <p>原创提出基于特征向量分解的无监督基因组扫描方法，无需群体分组信息即可检测自然选择信号。已从方法学论文发展为服务全球科研者的在线平台，广泛应用于人类群体遗传、作物驯化与育种、动物遗传多样性研究。</p>
+                    <div class="project-tags">
+                        <span>群体遗传学</span><span>自然选择</span><span>作物育种</span><span>开源平台</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://www.eigengwas.com" target="_blank" class="pl-primary"><i class="fas fa-globe"></i> 在线平台</a>
+                        <a href="https://pubmed.ncbi.nlm.nih.gov/33665976/" target="_blank" class="pl-secondary"><i class="fas fa-file-alt"></i> 论文</a>
                     </div>
                 </div>
 
-                <!-- Paper 2: UK BioCoin -->
-                <div class="pub-card fade-in">
-                    <span class="pub-journal">Nature Communications</span>
-                    <h3>UK BioCoin: Swift Trait-Specific Summary Statistics Regression for UK Biobank</h3>
-                    <p class="pub-authors">
-                        Jing-Cheng He, Guo-An Qi, Jiacheng Ying, Yu Qian, Lide Han, Yingying Mao, Hou-Feng Zheng, Hangjin Jiang, <strong>Guo-Bo Chen</strong>
-                    </p>
-                    <p class="pub-abstract">
-                        提出 UK BioCoin (UKC) 计算框架，无需访问 UK Biobank 个体层面数据，即可实现用户自定义协变量调整的性状特异性汇总统计回归。利用预计算的中间矩阵，将复杂回归转化为仅需汇总统计数据的快速运算，计算效率提升约 70-80 倍。在 SNP 遗传力估计、多基因评分 (PGS) 及孟德尔随机化 (MR) 等场景验证了其准确性和实用性。
-                    </p>
-                    <div class="pub-links">
-                        <a href="https://pubmed.ncbi.nlm.nih.gov/41997943/" target="_blank" class="pub-link primary">
-                            <i class="fas fa-external-link-alt"></i> PubMed
-                        </a>
-                        <a href="https://github.com/Ttttt47/UKBioCoin" target="_blank" class="pub-link secondary">
-                            <i class="fab fa-github"></i> GitHub
-                        </a>
-                        <a href="https://doi.org/10.1101/2024.04.12.589273" target="_blank" class="pub-link secondary">
-                            <i class="fas fa-link"></i> DOI
-                        </a>
+                <!-- Project 2: UK BioCoin -->
+                <div class="project-card pc-red fade-up">
+                    <div class="icon-wrap"><i class="fas fa-coins"></i></div>
+                    <h3>UK BioCoin — 隐私保护的生物样本库分析</h3>
+                    <div class="subtitle">Privacy-Preserving Biobank Analytics</div>
+                    <p>突破大规模生物样本库数据分析的"权限墙"与"计算墙"——无需接触个体数据，即可实现用户自定义协变量调整的性状特异性汇总统计回归。计算效率提升 70-80 倍，为精准医学的隐私保护数据共享提供新范式。</p>
+                    <div class="project-tags">
+                        <span>UK Biobank</span><span>精准医学</span><span>隐私保护</span><span>数据科学</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/Ttttt47/UKBioCoin" target="_blank" class="pl-primary"><i class="fab fa-github"></i> GitHub</a>
+                        <a href="https://pubmed.ncbi.nlm.nih.gov/41997943/" target="_blank" class="pl-secondary"><i class="fas fa-file-alt"></i> Nat Comm</a>
+                    </div>
+                </div>
+
+                <!-- Project 3: Genomic Prediction -->
+                <div class="project-card pc-green fade-up">
+                    <div class="icon-wrap"><i class="fas fa-seedling"></i></div>
+                    <h3>基因组预测 — AI 驱动的智慧育种</h3>
+                    <div class="subtitle">AI-Powered Genomic Prediction for Breeding</div>
+                    <p>开发结合 Haseman-Elston 回归与 APY 算法的新型基因组预测方法，实现超大规模基因组数据的快速精准预测。将统计学前沿方法转化为育种产业的实际生产力，支撑作物与畜禽的遗传改良效率跃升。</p>
+                    <div class="project-tags">
+                        <span>智慧育种</span><span>基因组选择</span><span>产业转化</span><span>HE-APY</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://pubmed.ncbi.nlm.nih.gov/35645540/" target="_blank" class="pl-secondary"><i class="fas fa-file-alt"></i> Crop J 2022</a>
+                    </div>
+                </div>
+
+                <!-- Project 4: LD Atlas -->
+                <div class="project-card pc-purple fade-up">
+                    <div class="icon-wrap"><i class="fas fa-atlas"></i></div>
+                    <h3>LD Atlas — 跨物种连锁不平衡图谱</h3>
+                    <div class="subtitle">Cross-Species LD Reference Atlas</div>
+                    <p>构建跨物种连锁不平衡 (LD) 参考图谱，为基因组学基础研究与 GWAS 分析提供关键的群体遗传学基础设施。高效估计大规模基因组 LD 模式，支撑关联分析、遗传力估计与多基因评分等下游应用。</p>
+                    <div class="project-tags">
+                        <span>连锁不平衡</span><span>群体遗传</span><span>数据基础设施</span><span>跨物种</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="pl-secondary"><i class="fas fa-file-alt"></i> Genome Biol 2025</a>
+                    </div>
+                </div>
+
+                <!-- Project 5: Clinical Genomics -->
+                <div class="project-card pc-teal fade-up">
+                    <div class="icon-wrap"><i class="fas fa-heartbeat"></i></div>
+                    <h3>临床基因组学 — 精准医学与疾病遗传解析</h3>
+                    <div class="subtitle">Clinical Genomics & Precision Medicine</div>
+                    <p>将统计遗传学方法应用于妊娠并发症（妊娠期糖尿病、妊娠期肝内胆汁淤积）、炎症性肠病、新冠肺炎疫苗免疫应答等重大临床问题的遗传机制解析与风险预测，推动基因组学成果向临床转化。</p>
+                    <div class="project-tags">
+                        <span>精准医学</span><span>妊娠健康</span><span>复杂疾病</span><span>PRS</span>
+                    </div>
+                </div>
+
+                <!-- Project 6: Medical Cohort -->
+                <div class="project-card pc-warm fade-up">
+                    <div class="icon-wrap"><i class="fas fa-users"></i></div>
+                    <h3>医疗队列建设 — 数据共享与协作基础设施</h3>
+                    <div class="subtitle">Medical Cohort Building & Data Sharing</div>
+                    <p>探索大规模医疗队列的构建与共享模式，研究基于加密基因型回归的跨队列亲属搜索方法，为多中心协作研究提供数据互通与隐私保护的技术保障。</p>
+                    <div class="project-tags">
+                        <span>数据共享</span><span>隐私保护</span><span>队列建设</span><span>跨中心</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Research Directions -->
-    <section class="section research-section" id="research">
+    <!-- SOFTWARE TOOLS -->
+    <section class="section" id="tools">
         <div class="container">
-            <div class="section-title fade-in">
-                <h2><i class="fas fa-microscope"></i>&nbsp; 研究方向</h2>
-                <p>Chen 教授团队核心研究领域</p>
+            <div class="sec-header fade-up">
+                <div class="label">Open-Source Tools</div>
+                <h2>软件与平台</h2>
+                <p>面向全球科研社区的开源工具生态</p>
             </div>
-            <div class="research-grid">
-                <div class="research-card fade-in">
-                    <i class="fas fa-dna"></i>
-                    <h3>群体基因组学</h3>
-                    <p>利用主成分分析 (PCA) 和特征向量分解方法，开发新型群体遗传分析工具，检测基因组中的自然选择信号与群体结构特征。</p>
+            <div class="tools-grid fade-up">
+                <div class="tool-card">
+                    <h4>EigenGWAS</h4>
+                    <p>在线可视化交互平台，检测基因组自然选择信号。支持 PLINK 数据格式，R-Shiny 友好界面。</p>
+                    <a href="https://www.eigengwas.com" target="_blank"><i class="fas fa-external-link-alt"></i> eigengwas.com</a>
+                    &nbsp;
+                    <a href="https://github.com/gc5k/GEAR/wiki/EigenGWAS" target="_blank"><i class="fab fa-github"></i> GitHub</a>
                 </div>
-                <div class="research-card fade-in">
-                    <i class="fas fa-chart-bar"></i>
-                    <h3>统计遗传学</h3>
-                    <p>发展高效的汇总统计数据回归方法，突破大规模生物样本库数据分析的隐私与计算瓶颈，实现性状特异性的灵活统计推断。</p>
+                <div class="tool-card">
+                    <h4>GEAR</h4>
+                    <p>Genetic Analysis Repository — 基因组分析工具箱，支持 EigenGWAS、ProPC 等多种分析方法。</p>
+                    <a href="https://github.com/gc5k/GEAR/wiki" target="_blank"><i class="fab fa-github"></i> GitHub Wiki</a>
                 </div>
-                <div class="research-card fade-in">
-                    <i class="fas fa-laptop-code"></i>
-                    <h3>生物计算平台</h3>
-                    <p>构建用户友好的在线分析平台与开源工具，降低生物信息学分析门槛，推动基因组数据的高效处理与可视化解读。</p>
+                <div class="tool-card">
+                    <h4>UK BioCoin</h4>
+                    <p>UK Biobank 性状特异性汇总统计回归工具，计算效率提升 70-80 倍，Docker 部署。</p>
+                    <a href="https://github.com/Ttttt47/UKBioCoin" target="_blank"><i class="fab fa-github"></i> GitHub</a>
                 </div>
-                <div class="research-card fade-in">
-                    <i class="fas fa-seedling"></i>
-                    <h3>作物与进化遗传学</h3>
-                    <p>将 EigenGWAS 方法应用于作物驯化与改良的遗传解析，鉴定与重要农艺性状相关的选择位点与候选基因。</p>
+                <div class="tool-card">
+                    <h4>QGAStation / GMDR-GPU</h4>
+                    <p>数量遗传分析工作站 & GPU 加速的多因子降维交互检测工具。</p>
+                    <a href="https://github.com/gc5k" target="_blank"><i class="fab fa-github"></i> GitHub</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- PUBLICATIONS -->
+    <section class="section pub-section" id="publications">
+        <div class="container">
+            <div class="sec-header fade-up">
+                <div class="label">Publications</div>
+                <h2>发表论文</h2>
+                <p>62+ 篇学术论文，涵盖统计遗传学、计算基因组学、精准医学与育种等领域（* 通讯作者，# 共同第一作者）</p>
+            </div>
+
+            <!-- Community Migration Announcement -->
+            <div class="announce-banner fade-up" id="community">
+                <h3><i class="fas fa-bullhorn"></i> EigenGWAS 社区迁移公告</h3>
+                <p>EigenGWAS 官方社区已全面迁移至杭州魔塔（ModelScope）社区。依托魔塔社区的算力服务与生态平台，为科研工作者提供更优质的基因组分析体验。</p>
+                <a href="https://modelscope.cn" target="_blank"><i class="fas fa-external-link-alt"></i> 前往 ModelScope</a>
+            </div>
+
+            <div class="pub-filter fade-up">
+                <button class="active" onclick="filterPub('all', this)">全部</button>
+                <button onclick="filterPub('nature', this)">Nature/Lancet</button>
+                <button onclick="filterPub('natcomm', this)">Nat Comm</button>
+                <button onclick="filterPub('method', this)">方法学</button>
+                <button onclick="filterPub('clinical', this)">临床基因组</button>
+                <button onclick="filterPub('breeding', this)">育种与进化</button>
+                <button onclick="filterPub('software', this)">软件工具</button>
+            </div>
+
+            <ul class="pub-list fade-up" id="pubList">
+                <!-- 2026 -->
+                <li class="pub-item" data-cat="natcomm">
+                    <span class="pub-num">61</span>
+                    <div class="pub-content">
+                        <div class="pub-title">UK BioCoin: Swift Trait-Specific Summary Statistics Regression for UK Biobank</div>
+                        <div class="pub-authors-line">He JC#, Qi GA#, Ying J, Qian Y, Han L, Mao Y, Zheng HF, Jiang*, <strong>Chen GB*</strong> · <span class="pub-journal-name">Nat Comm</span> 17:5379, 2026</div>
+                    </div>
+                    <div class="pub-links-inline">
+                        <a href="https://pubmed.ncbi.nlm.nih.gov/41997943/" target="_blank" title="PubMed"><i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </li>
+                <!-- 2025 -->
+                <li class="pub-item" data-cat="breeding">
+                    <span class="pub-num">60</span>
+                    <div class="pub-content">
+                        <div class="pub-title">An atlas of linkage disequilibrium across species</div>
+                        <div class="pub-authors-line">Zhu TN#, Huang X, Yang MY, Qi GA, Zhang QX, Lin F, Zhang W, Zhang Z, Jin X, Zheng HF, Xu HM, Yu S, <strong>Chen GB*</strong> · <span class="pub-journal-name">Genome Biol</span> 26:396, 2025</div>
+                    </div>
+                    <div class="pub-links-inline">
+                        <a href="#" target="_blank" title="PubMed"><i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </li>
+                <li class="pub-item" data-cat="method">
+                    <span class="pub-num">59</span>
+                    <div class="pub-content">
+                        <div class="pub-title">Analytical and computational solution for the estimation of SNP-heritability in biobank-scale and distributed datasets</div>
+                        <div class="pub-authors-line">Qi GA#, Zhang QX#, Kang J, Li T, Xu X, Zhang Z, Fan Z, Liu S, <strong>Chen GB*</strong> · <span class="pub-journal-name">PLoS Comp Biol</span> 21:1013568, 2025</div>
+                    </div>
+                    <div class="pub-links-inline">
+                        <a href="#" target="_blank" title="PubMed"><i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </li>
+                <li class="pub-item" data-cat="natcomm">
+                    <span class="pub-num">58</span>
+                    <div class="pub-content">
+                        <div class="pub-title">Genetic architecture and risk prediction of gestational diabetes mellitus in Chinese pregnancies</div>
+                        <div class="pub-authors-line">Gu Y#, Zheng H#, Wang P, Liu Y, Guo X, Wei Y, Yang Z, Cheng S, Chen Y, Hu L, Chen X, Zhang Q, <strong>Chen GB</strong>, Wei*, Zhen*, Liu* · <span class="pub-journal-name">Nat Comm</span> 16:4178, 2025</div>
+                    </div>
+                    <div class="pub-links-inline">
+                        <a href="#" target="_blank" title="PubMed"><i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </li>
+                <li class="pub-item" data-cat="clinical">
+                    <span class="pub-num">57</span>
+                    <div class="pub-content">
+                        <div class="pub-title">Genetic study of intrahepatic cholestasis of pregnancy in Chinese women unveils East Asian etiology linked to historic HBV epidemic</div>
+                        <div class="pub-authors-line">Liu Y#, Wei#, Chen#, Huang#, Gu Y, Yang Z, Guo X, Zheng H, Feng H, Huang M, Chen S, Xiao T, Hu L, Zhang Q, Zhang Y, <strong>Chen GB</strong>, Qiu*, Wei*, Zhen*, Liu* · <span class="pub-journal-name">J Hepatology</span> 82:826-35, 2025</div>
+                    </div>
+                    <div class="pub-links-inline">
+                        <a href="#" target="_blank" title="PubMed"><i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </li>
+                <li class="pub-item" data-cat="natcomm">
+                    <span class="pub-num">56</span>
+                    <div class="pub-content">
+                        <div class="pub-title">Rapid and accurate multi-phenotype imputation for millions of individuals</div>
+                        <div class="pub-authors-line">Gu LL#, Wu HS, Liu TY, Zhang YJ, He JC, Liu XL, Wang ZY, <strong>Chen GB*</strong>, Dan*, Fang* · <span class="pub-journal-name">Nat Comm</span> 16:387, 2025</div>
+                    </div>
+                    <div class="pub-links-inline">
+                        <a href="#" target="_blank" title="PubMed"><i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </li>
+                <li class="pub-item" data-cat="clinical">
+                    <span class="pub-num">55</span>
+                    <div class="pub-content">
+                        <div class="pub-title">Preimplantation genetic testing for type 2 diabetes based on family-specific polygenic risk score</div>
+                        <div class="pub-authors-line">Xu C#*, Chen S, Zou Y#, Chen Y#, Wu Y, Xu C, Xia Y, <strong>Chen GB</strong>, Jin*, Lu*, Huang* · <span class="pub-journal-name">Diab Res Clin Practice</span> 225:12226, 2025</div>
+                    </div>
+                    <div class="pub-links-inline">
+                        <a href="#" target="_blank" title="PubMed"><i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </li>
+                <!-- 2024 -->
+                <li class="pub-item" data-cat="method">
+                    <span class="pub-num">54</span>
+                    <div class="pub-content">
+                        <div class="pub-title">Utilizing non-invasive prenatal test sequencing data for human genetic investigation</div>
+                        <div class="pub-authors-line">Liu S#, Liu Y, Gu Y, Lin X, Zhu H, Liu H, Xu Z, Cheng S, Lan X, Li L, Huang M, Li H, Nielsen R, Davies RW, Albrechtsen A, <strong>Chen GB</strong>, Qiu X, Jin*, Huang* · <span class="pub-journal-name">Cell Genomics</span> 4:100669, 2024</div>
+                    </div>
+                    <div class="pub-links-inline">
+                        <a href="#" target="_blank" title="PubMed"><i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </li>
+                <li class="pub-item" data-cat="method">
+                    <span class="pub-num">53</span>
+                    <div class="pub-content">
+                        <div class="pub-title">The Garden of Forking Paths: Reinterpreting Haseman-Elston Regression for a Genotype-by-Environment Model</div>
+                        <div class="pub-authors-line"><strong>Chen GB</strong> · <span class="pub-journal-name">Behavior Genetics</span> 54:342-52, 2024</div>
+                    </div>
+                    <div class="pub-links-inline">
+                        <a href="#" target="_blank" title="PubMed"><i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </li>
+                <li class="pub-item" data-cat="clinical">
+                    <span class="pub-num">52</span>
+                    <div class="pub-content">
+                        <div class="pub-title">Building and sharing medical cohorts for research</div>
+                        <div class="pub-authors-line"><strong>Chen GB</strong>#, Liu S, Zhang L, Huang T, Tang X, Li Y, Zeng C · <span class="pub-journal-name">The Innovation</span> 5:107386, 2024</div>
+                    </div>
+                    <div class="pub-links-inline">
+                        <a href="#" target="_blank" title="PubMed"><i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </li>
+                <li class="pub-item" data-cat="clinical">
+                    <span class="pub-num">51</span>
+                    <div class="pub-content">
+                        <div class="pub-title">Genetic basis of pregnancy-associated decreased platelet counts and gestational thrombocytopenia</div>
+                        <div class="pub-authors-line">Yang Z#, Hu#, Zhen#, Gu Y, Liu Y, Huang S, Wei Y, Zheng H, Guo X, <strong>Chen GB</strong>, Yang Y, Xiong*, Wei*, Liu* · <span class="pub-journal-name">Blood</span> 143:1528-38, 2024</div>
+                    </div>
+                    <div class="pub-links-inline">
+                        <a href="#" target="_blank" title="PubMed"><i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </li>
+                <li class="pub-item" data-cat="clinical">
+                    <span class="pub-num">50</span>
+                    <div class="pub-content">
+                        <div class="pub-title">Genetic determinants of IgG antibody response to COVID-19 vaccination</div>
+                        <div class="pub-authors-line">Bian S#, Guo X#, Yang X, Wei Y, Yang Z, Cheng S, Yan J, Chen Y, <strong>Chen GB</strong>, Du X, Francis SS, Shu Y, Liu S · <span class="pub-journal-name">Am J Hum Genet</span> 111:181-199, 2024</div>
+                    </div>
+                    <div class="pub-links-inline">
+                        <a href="#" target="_blank" title="PubMed"><i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </li>
+                <li class="pub-item" data-cat="method">
+                    <span class="pub-num">49</span>
+                    <div class="pub-content">
+                        <div class="pub-title">Searching across-cohort relatives in 54,092 GWAS samples via encrypted genotype regression</div>
+                        <div class="pub-authors-line">Zhang QX#, …, <strong>Chen GB*</strong> · <span class="pub-journal-name">PLoS Genet</span> 20:e1011037, 2024</div>
+                    </div>
+                    <div class="pub-links-inline">
+                        <a href="#" target="_blank" title="PubMed"><i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </li>
+                <!-- 2023 -->
+                <li class="pub-item" data-cat="method">
+                    <span class="pub-num">48</span>
+                    <div class="pub-content">
+                        <div class="pub-title">Efficient estimation for large-scale linkage disequilibrium patterns of the human genome</div>
+                        <div class="pub-authors-line">Huang X#, Zhu TN#, Liu YC, Qi GA, Zhang JN, <strong>Chen GB*</strong> · <span class="pub-journal-name">eLife</span> 12:0636, 2023</div>
+                    </div>
+                    <div class="pub-links-inline">
+                        <a href="#" target="_blank" title="PubMed"><i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </li>
+                <li class="pub-item" data-cat="clinical">
+                    <span class="pub-num">47</span>
+                    <div class="pub-content">
+                        <div class="pub-title">Associations of the circulating levels of cytokines with risk of amyotrophic lateral sclerosis: a Mendelian randomization study</div>
+                        <div class="pub-authors-line">Liu B#, Lyu L, Zhou W, Song J, Ye D, Mao Y, <strong>Chen GB*</strong>, Sun* · <span class="pub-journal-name">BMC Medicine</span> 21:39, 2023</div>
+                    </div>
+                    <div class="pub-links-inline">
+                        <a href="#" target="_blank" title="PubMed"><i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </li>
+                <!-- 2021-2022 -->
+                <li class="pub-item" data-cat="clinical">
+                    <span class="pub-num">46</span>
+                    <div class="pub-content">
+                        <div class="pub-title">Observational and genetic evidence highlight the association of human sleep behaviors with the incidence of fracture</div>
+                        <div class="pub-authors-line">Qian Y#, Xia#, Liu KQ, Xu L, Xie SY, <strong>Chen GB</strong>, Cong PK, Khederzadeh S, Zheng* · <span class="pub-journal-name">Comm Biol</span> 4:1339, 2021</div>
+                    </div>
+                    <div class="pub-links-inline">
+                        <a href="#" target="_blank" title="PubMed"><i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </li>
+                <li class="pub-item" data-cat="breeding">
+                    <span class="pub-num">44</span>
+                    <div class="pub-content">
+                        <div class="pub-title">A novel genomic prediction method combining randomized Haseman-Elston regression with a modified algorithm for Proven and Young for large genomic data</div>
+                        <div class="pub-authors-line">Liu H*, <strong>Chen GB*</strong> · <span class="pub-journal-name">The Crop Journal</span> 10:550-4, 2022</div>
+                    </div>
+                    <div class="pub-links-inline">
+                        <a href="#" target="_blank" title="PubMed"><i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </li>
+                <li class="pub-item" data-cat="software">
+                    <span class="pub-num">43</span>
+                    <div class="pub-content">
+                        <div class="pub-title">EigenGWAS: An online visualizing and interactive application for detecting genomic signatures of natural selection</div>
+                        <div class="pub-authors-line">Qi G, Zheng YT, Lin F, Huang X, Duan LW, You Y, Liu H, Wang Y, Xu HM*, <strong>Chen GB*</strong> · <span class="pub-journal-name">Mol Ecology Resources</span> 21:1732-44, 2021</div>
+                    </div>
+                    <div class="pub-links-inline">
+                        <a href="https://pubmed.ncbi.nlm.nih.gov/33665976/" target="_blank" title="PubMed"><i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </li>
+                <li class="pub-item" data-cat="software">
+                    <span class="pub-num">42</span>
+                    <div class="pub-content">
+                        <div class="pub-title">ProteomeExpert: A Docker image based web-server for exploring, modeling, visualizing, and mining large-scale proteomic data sets</div>
+                        <div class="pub-authors-line">Zhu T, Chen H, Yan X, Wu Z, Zhou X, Xiao Q, Ge W, Zhang Q, Xu C, Xu L, Ruan G, Xue Z, Yuan*, <strong>Chen GB*</strong>, Guo* · <span class="pub-journal-name">Bioinformatics</span> 37:273-275, 2021</div>
+                    </div>
+                    <div class="pub-links-inline">
+                        <a href="#" target="_blank" title="PubMed"><i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </li>
+                <li class="pub-item" data-cat="method">
+                    <span class="pub-num">41</span>
+                    <div class="pub-content">
+                        <div class="pub-title">Subsampling technique to estimate variance component for UK-Biobank traits</div>
+                        <div class="pub-authors-line">Xu T#, Qi GA, Zhu J, Xu HM, <strong>Chen GB*</strong> · <span class="pub-journal-name">Front Genet</span> 12:612045, 2021</div>
+                    </div>
+                    <div class="pub-links-inline">
+                        <a href="#" target="_blank" title="PubMed"><i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </li>
+                <!-- 2019-2020 -->
+                <li class="pub-item" data-cat="breeding">
+                    <span class="pub-num">38</span>
+                    <div class="pub-content">
+                        <div class="pub-title">A rapid genomic selection method combining Haseman-Elston (HE) model and algorithm for proven and young (APY)</div>
+                        <div class="pub-authors-line">Liu H*, <strong>Chen GB*</strong> · <span class="pub-journal-name">Mol Breeding</span> 40:12, 2020</div>
+                    </div>
+                    <div class="pub-links-inline">
+                        <a href="#" target="_blank" title="PubMed"><i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </li>
+                <li class="pub-item" data-cat="breeding">
+                    <span class="pub-num">37</span>
+                    <div class="pub-content">
+                        <div class="pub-title">Identifying loci with breeding potential across temperate and tropical adaptation via EigenGWAS and EnvGWAS</div>
+                        <div class="pub-authors-line">Li J#, <strong>Chen GB</strong>#, et al · <span class="pub-journal-name">Mol Ecology</span> 28:3544-3560, 2019</div>
+                    </div>
+                    <div class="pub-links-inline">
+                        <a href="#" target="_blank" title="PubMed"><i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </li>
+                <!-- 2016-2018 -->
+                <li class="pub-item" data-cat="breeding">
+                    <span class="pub-num">35</span>
+                    <div class="pub-content">
+                        <div class="pub-title">A new genomic prediction method with additive-dominance effects in the least-squares framework</div>
+                        <div class="pub-authors-line">Liu H*, <strong>Chen GB*</strong> · <span class="pub-journal-name">Heredity</span> 121:196-204, 2018</div>
+                    </div>
+                    <div class="pub-links-inline">
+                        <a href="#" target="_blank" title="PubMed"><i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </li>
+                <li class="pub-item" data-cat="breeding">
+                    <span class="pub-num">33</span>
+                    <div class="pub-content">
+                        <div class="pub-title">A fast genomic selection method for large genomic data</div>
+                        <div class="pub-authors-line">Liu H*, <strong>Chen GB*</strong> · <span class="pub-journal-name">Theor Appl Genet</span> 130:1277-84, 2017</div>
+                    </div>
+                    <div class="pub-links-inline">
+                        <a href="#" target="_blank" title="PubMed"><i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </li>
+                <!-- Nature/Lancet mega-collaborations -->
+                <li class="pub-item" data-cat="nature" style="background: linear-gradient(90deg, #fef3f0, transparent); border-radius: 8px; padding: 1.2rem 1rem;">
+                    <span class="pub-num" style="background: #e74c3c; color: white;">26</span>
+                    <div class="pub-content">
+                        <div class="pub-title">Genome-wide association study identifies 74 loci associated with educational attainment</div>
+                        <div class="pub-authors-line">Okbay A, Beauchamp JP, Fontana MA, Lee JJ, Pers T, Rietveld CA, Turley P, <strong>Chen GB</strong>, et al · <span class="pub-journal-name" style="color:#e74c3c; font-weight:700;">Nature</span> 533:539-42, 2016</div>
+                    </div>
+                    <div class="pub-links-inline">
+                        <a href="https://pubmed.ncbi.nlm.nih.gov/27225129/" target="_blank" title="PubMed" class="nature-badge"><i class="fas fa-star"></i></a>
+                    </div>
+                </li>
+                <li class="pub-item" data-cat="nature" style="background: linear-gradient(90deg, #fef3f0, transparent); border-radius: 8px; padding: 1.2rem 1rem;">
+                    <span class="pub-num" style="background: #e74c3c; color: white;">25</span>
+                    <div class="pub-content">
+                        <div class="pub-title">Genetic variants associated with response to lithium treatment in bipolar disorder: a genome-wide association study</div>
+                        <div class="pub-authors-line">Hou L, Heilbronner U, Degenhardt F, Adli M, ..., <strong>Chen GB</strong>, et al · <span class="pub-journal-name" style="color:#e74c3c; font-weight:700;">Lancet</span> 387:1085-93, 2016</div>
+                    </div>
+                    <div class="pub-links-inline">
+                        <a href="https://pubmed.ncbi.nlm.nih.gov/26725088/" target="_blank" title="PubMed" class="nature-badge"><i class="fas fa-star"></i></a>
+                    </div>
+                </li>
+                <li class="pub-item" data-cat="method">
+                    <span class="pub-num">30</span>
+                    <div class="pub-content">
+                        <div class="pub-title">Across-cohort analyses of genome-wide association study summary statistics from complex traits</div>
+                        <div class="pub-authors-line"><strong>Chen GB*</strong>, Lee SH, Robinson MR, Zhu ZX, Winkler TW, Day FR, ..., Wray NR, GIANT Consortium, Visscher* · <span class="pub-journal-name">Euro J Hum Genet</span> 25:137-46, 2017 <em>[EJHG-Tube video推荐]</em></div>
+                    </div>
+                    <div class="pub-links-inline">
+                        <a href="#" target="_blank" title="PubMed"><i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </li>
+                <li class="pub-item" data-cat="method">
+                    <span class="pub-num">29</span>
+                    <div class="pub-content">
+                        <div class="pub-title">On the reconciliation of missing heritability for GWAS data</div>
+                        <div class="pub-authors-line"><strong>Chen GB*</strong> · <span class="pub-journal-name">Euro J Hum Genet</span> 24:1810-6, 2016</div>
+                    </div>
+                    <div class="pub-links-inline">
+                        <a href="#" target="_blank" title="PubMed"><i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </li>
+                <li class="pub-item" data-cat="method">
+                    <span class="pub-num">28</span>
+                    <div class="pub-content">
+                        <div class="pub-title">EigenGWAS: finding loci under selection through genome-wide association studies of eigenvectors in structured populations</div>
+                        <div class="pub-authors-line"><strong>Chen GB*</strong>, Lee SH, Zhu ZX, Benyamin B, Robinson* · <span class="pub-journal-name">Heredity</span> 117:51-61, 2016</div>
+                    </div>
+                    <div class="pub-links-inline">
+                        <a href="https://pubmed.ncbi.nlm.nih.gov/27142779/" target="_blank" title="PubMed"><i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </li>
+                <li class="pub-item" data-cat="clinical">
+                    <span class="pub-num">22</span>
+                    <div class="pub-content">
+                        <div class="pub-title">Estimation and partitioning of (co)heritability of inflammatory bowel disease from GWAS and immunochip data</div>
+                        <div class="pub-authors-line"><strong>Chen GB</strong>, Lee SH, Montgomery GW, Wray NR, Radford-Smith G, Visscher PM, IBD Genetics Consortium · <span class="pub-journal-name">Hum Mol Genet</span> 17:4710-20, 2014</div>
+                    </div>
+                    <div class="pub-links-inline">
+                        <a href="#" target="_blank" title="PubMed"><i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </li>
+                <li class="pub-item" data-cat="method">
+                    <span class="pub-num">21</span>
+                    <div class="pub-content">
+                        <div class="pub-title">A unified generalized multifactor reduction method for detecting gene-gene interactions in family and unrelated samples</div>
+                        <div class="pub-authors-line"><strong>Chen GB</strong>, Liu N, Klimentidis YC, Zhi D, Zhu X, Wang X, Lou XY · <span class="pub-journal-name">Hum Genet</span> 133:139-50, 2014</div>
+                    </div>
+                    <div class="pub-links-inline">
+                        <a href="#" target="_blank" title="PubMed"><i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </li>
+                <li class="pub-item" data-cat="method">
+                    <span class="pub-num">19</span>
+                    <div class="pub-content">
+                        <div class="pub-title">Estimating heritability of complex traits from genome-wide association studies using the IBS-based Haseman-Elston regression</div>
+                        <div class="pub-authors-line"><strong>Chen GB*</strong> · <span class="pub-journal-name">Front Genet</span> 5:107, 2014</div>
+                    </div>
+                    <div class="pub-links-inline">
+                        <a href="#" target="_blank" title="PubMed"><i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </li>
+                <li class="pub-item" data-cat="method">
+                    <span class="pub-num">16</span>
+                    <div class="pub-content">
+                        <div class="pub-title">Estimation of SNP heritability from dense genotype data</div>
+                        <div class="pub-authors-line">Lee SH, Yang J, <strong>Chen GB</strong>, Ripke S, Stahl EA, Hultman CM, Sklar P, Visscher PM, Sullivan PF, Goddard ME, Wray · <span class="pub-journal-name">Am J Hum Genet</span> 93:1151-5, 2013</div>
+                    </div>
+                    <div class="pub-links-inline">
+                        <a href="#" target="_blank" title="PubMed"><i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </li>
+                <li class="pub-item" data-cat="method">
+                    <span class="pub-num">2</span>
+                    <div class="pub-content">
+                        <div class="pub-title">A generalized combinatorial approach for detecting gene-by-gene and gene-by-environment interactions with application to nicotine dependence</div>
+                        <div class="pub-authors-line">Lou XY, <strong>Chen GB</strong>, Yan L, Ma JZ, Zhu J, Elston RC, Li MD · <span class="pub-journal-name">Am J Hum Genet</span> 80:1125-37, 2007</div>
+                    </div>
+                    <div class="pub-links-inline">
+                        <a href="#" target="_blank" title="PubMed"><i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </li>
+            </ul>
+            <p style="text-align:center; color:var(--text-muted); font-size:0.85rem; margin-top:2rem;">
+                展示部分代表性论文 · <a href="https://scholar.google.com/citations?user=&hl=en&q=Guo-Bo+Chen+statistical+genetics" target="_blank" style="color:var(--primary-light)">查看全部 62+ 篇 →</a>
+            </p>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
     <footer>
-        <div class="footer-content">
+        <div class="footer-inner">
             <div class="footer-links">
                 <a href="https://pubmed.ncbi.nlm.nih.gov/33665976/" target="_blank">EigenGWAS Paper</a>
                 <a href="https://pubmed.ncbi.nlm.nih.gov/41997943/" target="_blank">UK BioCoin Paper</a>
                 <a href="https://www.eigengwas.com" target="_blank">EigenGWAS Platform</a>
-                <a href="https://github.com/Ttttt47/UKBioCoin" target="_blank">UK BioCoin GitHub</a>
-                <a href="https://modelscope.cn" target="_blank">ModelScope 社区</a>
+                <a href="https://github.com/gc5k/GEAR/wiki" target="_blank">GEAR Wiki</a>
+                <a href="https://github.com/Ttttt47/UKBioCoin" target="_blank">UK BioCoin</a>
+                <a href="https://modelscope.cn" target="_blank">ModelScope</a>
+                <a href="https://orcid.org/0000-0001-5475-8237" target="_blank">ORCID</a>
             </div>
             <p class="footer-copy">
-                &copy; 2025 EigenGWAS Team &middot; Professor Guo-Bo Chen's Research Group<br>
-                Zhejiang Provincial People's Hospital &middot; Hangzhou Medical College
+                &copy; 2025 Guo-Bo Chen's Research Group · Zhejiang Provincial People's Hospital · Hangzhou Medical College<br>
+                Powered by AI-for-Science
             </p>
         </div>
     </footer>
 
     <script>
-        // Mobile navigation toggle
-        function toggleNav() {
-            document.getElementById('navLinks').classList.toggle('active');
-        }
+        // Scroll animations
+        const obs = new IntersectionObserver(entries => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.08 });
+        document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
 
-        // Scroll fade-in animation
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-        // Smooth scroll for nav links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', function(e) {
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    document.getElementById('navLinks').classList.remove('active');
-                }
+                const t = document.querySelector(this.getAttribute('href'));
+                if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
             });
         });
+
+        // Publication filter
+        function filterPub(cat, btn) {
+            document.querySelectorAll('.pub-filter button').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.querySelectorAll('.pub-item').forEach(item => {
+                if (cat === 'all' || item.dataset.cat === cat) {
+                    item.style.display = '';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
     </script>
 </body>
 </html>
